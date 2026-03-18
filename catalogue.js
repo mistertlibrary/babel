@@ -480,7 +480,7 @@ function buildSidebarNav(cats, query) {
 let userDensityLocked = false;
 
 function autoDensity(count) {
-  const d = count > 80 ? 'compact' : count > 28 ? 'standard' : 'spacious';
+  const d = count > 120 ? 'compact' : count > 40 ? 'standard' : 'spacious';
   setDensity(d, false);
 }
 
@@ -751,4 +751,3 @@ initTheme();
 
 initSidebar();
 render();
-
