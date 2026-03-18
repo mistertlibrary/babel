@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║         CATALOGUE OF ENGINES — ACCESSION LOG                    ║
+  ╚══════════════════════════════════════════════════════════════════╝
+
+  Entry 001 — On the occasion of the first ingestion:
+  The conventional engines arrived pre-organized.
+  The indie ones arrived as things that distrust organization tend to.
+  Both conditions seem correct.
+
+  Entry 002 — On the subject of the Internet Archive:
+  Attempted classification. Filed under: everything. Also: faith.
+  Note: there is a ten percent chance of finding it checked out.
+  The lawyers are involved. They are always involved.
+
+  Entry 003 — On the hidden things:
+  The patron who types B-A-B-E-L should be rewarded.
+  The patron who knows the Konami code will find the staff.
+  The patron who clicks the epigraph seven times will find Borges.
+  Arrangements have been made throughout.
+
+  Entry 004 — On duration:
+  Someone will stay past closing tonight.
+  We have left a message for them in the footer.
+  It takes three minutes of reading before it becomes visible.
+  This seems approximately correct.
+
+  Entry 005 — On the manicule:
+  The pointing hand (☞) marks the notes.
+  It was used in manuscripts from the 12th century forward
+  to draw readers' attention to passages worth remembering.
+  We have restored it to active duty.
+
+  Entry 006 — On incompleteness:
+  The catalogue is never finished.
+  Every gap is an invitation.
+  Every missing entry is a question addressed to the reader:
+  what did we not think to look for?
+  We have not, in truth, made peace with this.
+  We have made a catalogue instead.
+
+  ☞ If you are reading this, you are the right kind of reader.
+-->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A comprehensive, annotated guide to search engines: conventional, indie web, and institutional repositories. A librarian's field guide.">
+  <title>The Catalogue of Engines</title>
+
+  <!-- Bunny Fonts: GDPR-clean, no Google handshake -->
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=playfair-display:400,400i,700,700i|eb-garamond:400,400i,500,600|jetbrains-mono:400,500&display=swap" rel="stylesheet">
+
+  <!-- Theme applied before stylesheet to prevent flash of wrong theme -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('cat-theme');
+      if (!t) { var h = new Date().getHours(); t = (h < 7 || h >= 19) ? 'dark' : 'light'; }
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="catalogue.css">
+</head>
+<body>
+
+<!-- ============================================================
+     SIDEBAR — navigation, filter, controls
+============================================================ -->
+<aside id="sidebar" aria-label="Navigation and search">
+
+  <div class="sidebar-head">
+    <div class="sidebar-brand">
+      <!-- The hexagon: it was always here. -->
+      <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M6.5 1L12 4.25V10.75L6.5 14L1 10.75V4.25Z" stroke="currentColor" stroke-width="1.1"/>
+        <path d="M6.5 3.5L9.5 5.25V8.75L6.5 10.5L3.5 8.75V5.25Z" stroke="currentColor" stroke-width="0.6" opacity="0.45"/>
+      </svg>
+      Catalogue of Engines
+    </div>
+    <button id="sidebar-close" aria-label="Close navigation">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1 1L10 10M10 1L1 10" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="sidebar-controls">
+    <button id="theme-toggle" aria-label="Toggle light/dark theme">
+      <span class="t-icon" id="theme-icon">&#9728;&#65039;</span>
+      <span id="theme-label">Light</span>
+    </button>
+    <div class="density-btns" role="group" aria-label="Card density">
+      <button data-density="compact"  title="Compact view"  aria-label="Compact density">&#9636;</button>
+      <button data-density="standard" title="Standard view" aria-label="Standard density" class="active">&#9638;</button>
+      <button data-density="spacious" title="Spacious view" aria-label="Spacious density">&#9640;</button>
+    </div>
+  </div>
+
+  <div class="sidebar-search">
+    <input
+      type="search"
+      id="filter-input"
+      placeholder="Search engines, tags, subjects&#8230;"
+      aria-label="Filter catalogue entries"
+      autocomplete="off"
+      spellcheck="false"
+    >
+    <p id="result-count" aria-live="polite" aria-atomic="true"></p>
+    <p id="author-flash" class="author-quote-flash" aria-live="polite"></p>
+  </div>
+
+  <div class="sidebar-scroll">
+    <nav id="sidebar-nav-content" aria-label="Gallery and subcategory navigation"></nav>
+  </div>
+
+</aside>
+
+<!-- Floating open button (visible when sidebar is closed) -->
+<button id="sidebar-open" aria-label="Open navigation" title="Open navigation">
+  <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M7 1L13 4.5V11.5L7 15L1 11.5V4.5Z" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M7 4L10.5 6V10L7 12L3.5 10V6Z" stroke="currentColor" stroke-width="0.65" opacity="0.45"/>
+  </svg>
+</button>
+
+<!-- ============================================================
+     MAIN CONTENT
+============================================================ -->
+<div id="main-wrap">
+
+  <header>
+    <p class="overline">A Librarian&#8217;s Field Guide</p>
+    <h1>The Catalogue<br>of Engines</h1>
+    <p class="subtitle">From the familiar to the principled, the commercial to the forgotten.</p>
+
+    <!-- Click seven times. Babel has a thing for sevens. -->
+    <blockquote class="epigraph" role="note" title="Click seven times for more Borges">
+      &#8220;When it was proclaimed that the Library contained all books, the first impression was one of extravagant happiness.&#8221;
+      <cite>&#8212; Jorge Luis Borges, &#8220;The Library of Babel&#8221; (1941)</cite>
+    </blockquote>
+  </header>
+
+  <main>
+
+    <!-- Gallery I: Conventional -->
+    <section class="gallery" id="gallery-i" aria-labelledby="gallery-i-heading">
+      <div class="gallery-header">
+                  <p class="gallery-numeral">Gallery I</p>
+                  <h2 id="gallery-i-heading">The Familiar Territories</h2>
+                  <p class="gallery-desc">The engines most people think of when they think of search. What looks like a neutral utility is, on closer inspection, a set of deeply consequential choices: about what to index, what to surface, who to serve, and what to charge for the privilege. Google's stated mission:"to organize the world's information and make it universally accessible and useful":is either the most ambitious public-interest project in the history of technology or an extraordinarily successful rationalization of monopoly power, depending on how charitable you are feeling. The regional engines here serve as a useful corrective to the assumption that the search landscape is universal. It is not. Where you are shapes what you find.</p>
+                </div>
+      <div class="gallery-ornament" aria-hidden="true">
+        <span class="ornament-glyph">&#x2B21;</span>
+      </div>
+      <div id="grid-conventional" role="list"></div>
+    </section>
+
+    <!-- Gallery II: The Indie Web -->
+    <section class="gallery" id="gallery-ii" aria-labelledby="gallery-ii-heading">
+      <div class="gallery-header">
+                  <p class="gallery-numeral">Gallery II</p>
+                  <h2 id="gallery-ii-heading">The Unmapped Web</h2>
+                  <p class="gallery-desc">Before search engines learned to be profitable, the web was navigated by curiosity and accident. These engines are, in aggregate, a counterargument to the premise that the commercial index is the only possible index. Some are built by single developers on home servers. Some are open-source collaborations distributed across volunteer crawlers. Some are principled experiments in what search might look like if it answered to its users rather than its advertisers. Wiby, which indexes only personal and hobbyist pages, puts it plainly: the button that drops you into a random page with no query required is called "Surprise Me." That is a design philosophy, not just a feature. These engines collectively insist that the pre-SEO web:text-rich, human-made, deliberately eccentric:is worth finding.</p>
+                </div>
+      <div class="gallery-ornament" aria-hidden="true">
+        <span class="ornament-glyph">&#x2B21;</span>
+      </div>
+      <div id="grid-indie" role="list"></div>
+    </section>
+
+    <!-- Gallery III: Archives & Institutional Repositories -->
+    <section class="gallery" id="gallery-iii" aria-labelledby="gallery-iii-heading">
+      <div class="gallery-header">
+                  <p class="gallery-numeral">Gallery III</p>
+                  <h2 id="gallery-iii-heading">Archives &amp; Institutional Repositories</h2>
+                  <p class="gallery-desc">The library, like the archive, operates on a different theory of value than the search engine. The search engine asks: what do people want to find? The library asks: what should people be able to find, regardless of whether they know they need it? These are not the same question, and the institutions gathered here have built their search infrastructure around the second one. Some are millennia of human record-keeping made searchable in an afternoon. Some are acts of institutional faith:the Smithsonian's CC0 release of 4.7 million images, the Rijksmuseum's Rijksstudio, the Internet Archive's conviction that everything worth knowing should remain available to everyone, forever:that run directly counter to the dominant logic of digital scarcity. Brewster Kahle, who founded the Internet Archive, called it "universal access to all knowledge." The scale of that ambition is worth sitting with for a moment before you begin searching.</p>
+                </div>
+      <div class="gallery-ornament" aria-hidden="true">
+        <span class="ornament-glyph">&#x2B21;</span>
+      </div>
+      <div id="grid-institutional" role="list"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <!--
+      The catalogue is always incomplete.
+      That is its most honest feature.
+    -->
+    <svg class="footer-hex" width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M13 1.5L24.5 8V22L13 28.5L1.5 22V8Z" stroke="currentColor" stroke-width="0.85"/>
+      <path d="M13 5.5L20.5 9.75V18.25L13 22.5L5.5 18.25V9.75Z" stroke="currentColor" stroke-width="0.55" opacity="0.45"/>
+      <path d="M13 9.5L16.5 11.5V15.5L13 17.5L9.5 15.5V11.5Z" stroke="currentColor" stroke-width="0.35" opacity="0.25"/>
+    </svg>
+    <p class="footer-text">
+      A catalogue is always incomplete. That is its most honest feature.<br>
+      <span id="engine-count-hex"></span>
+    </p>
+    <p class="footer-patient" id="footer-patient" aria-live="polite">
+      You have been here long enough. You have found something.
+    </p>
+  </footer>
+
+</div><!-- /#main-wrap -->
+
+<!-- Data file must load before the logic file -->
+<script src="catalogue-data.js"></script>
+<script src="catalogue.js"></script>
+
+</body>
+</html>
