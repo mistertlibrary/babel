@@ -1,6 +1,6 @@
 /* ============================================================
    CATALOGUE OF ENGINES — catalogue.css
-   A librarian arranged these rules. He has opinions.
+   A librarian arranged these rules. She had opinions.
    ============================================================ */
 
 /* ---- RESET ---- */
@@ -508,10 +508,23 @@ body[data-density="spacious"] .card-grid { grid-template-columns: repeat(auto-fi
   animation: fadeUp 0.32s both;
 }
 
-/* The hand-placed feeling: subtle rotation variants */
-.card:nth-child(3n+1) { transform: rotate(0.11deg); }
-.card:nth-child(3n+2) { transform: rotate(-0.09deg); }
-.card:nth-child(3n)   { transform: rotate(0.07deg); }
+/* The hand-placed feeling: subtly irregular rotation variants
+   Prime-number nth-child selectors avoid the wallpaper pattern
+   that results from simple modular cycling. */
+.card:nth-child(2)  { transform: rotate(0.12deg); }
+.card:nth-child(3)  { transform: rotate(-0.08deg); }
+.card:nth-child(5)  { transform: rotate(0.10deg); }
+.card:nth-child(7)  { transform: rotate(-0.11deg); }
+.card:nth-child(11) { transform: rotate(0.07deg); }
+.card:nth-child(13) { transform: rotate(-0.09deg); }
+.card:nth-child(17) { transform: rotate(0.13deg); }
+.card:nth-child(19) { transform: rotate(-0.07deg); }
+.card:nth-child(23) { transform: rotate(0.09deg); }
+.card:nth-child(29) { transform: rotate(-0.12deg); }
+.card:nth-child(31) { transform: rotate(0.08deg); }
+.card:nth-child(37) { transform: rotate(-0.10deg); }
+.card:nth-child(41) { transform: rotate(0.11deg); }
+.card:nth-child(43) { transform: rotate(-0.08deg); }
 
 /* open-access cards get a fractionally heavier top border */
 .card[data-oa="true"] { border-top: 2px solid var(--border); }
@@ -588,6 +601,8 @@ body[data-density="spacious"] .card-body { padding: 1.4rem 1.6rem 1.4rem; gap: 0
   vertical-align: middle;
   background: var(--oa-bg);
   flex-shrink: 0;
+  margin-right: 0.4rem;
+  margin-left: 0.1rem;
 }
 
 .card-affiliation {
