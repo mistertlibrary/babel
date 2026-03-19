@@ -945,3 +945,646 @@ footer {
   h1 { font-size: 2rem; }
   .card:nth-child(n) { transform: none; }
 }
+
+
+/* ============================================================
+   FEATURE: THE DOG-EAR
+   A folded corner bookmark on each card.
+   Clicking marks/unmarks the card and persists to localStorage.
+   ============================================================ */
+
+.dog-ear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 28px 28px 0;
+  border-color: transparent var(--border-lt) transparent transparent;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), border-width 0.2s var(--ease);
+  z-index: 3;
+}
+.dog-ear:hover {
+  border-width: 0 34px 34px 0;
+  border-color: transparent var(--accent-dim) transparent transparent;
+}
+.dog-ear[aria-pressed="true"] {
+  border-color: transparent var(--accent) transparent transparent;
+  border-width: 0 32px 32px 0;
+}
+.dog-ear[aria-pressed="true"]::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  right: -26px;
+  width: 6px;
+  height: 6px;
+  background: var(--card-bg);
+  border-radius: 50%;
+  opacity: 0.7;
+}
+.dog-ear-tooltip {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s;
+}
+.dog-ear:hover + .dog-ear-tooltip,
+.dog-ear:focus + .dog-ear-tooltip {
+  opacity: 1;
+}
+
+/* Sidebar: marked cards count */
+.sidebar-marked-count {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  padding: 0.55rem 0 0.3rem;
+  border-bottom: 1px solid var(--border-lt);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  cursor: pointer;
+  transition: color 0.15s;
+  user-select: none;
+}
+.sidebar-marked-count:hover { color: var(--accent-hl); }
+.sidebar-marked-count em {
+  font-style: normal;
+  color: var(--fainter);
+  font-size: 0.58rem;
+}
+.sidebar-marked-count.hidden { display: none; }
+
+/* ============================================================
+   FEATURE: THE DRAWER PULL
+   Collapsible subcategory sections with a pull affordance.
+   State persists to localStorage.
+   ============================================================ */
+
+.subcat-drawer {
+  cursor: pointer;
+  user-select: none;
+}
+.subcat-drawer:hover { background: var(--card-bar-bg); }
+#gallery-ii .subcat-drawer:hover  { background: var(--g2-bar); }
+#gallery-iii .subcat-drawer:hover { background: var(--g3-bar); }
+
+.subcat-pull {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.subcat-pull-icon {
+  font-size: 0.65rem;
+  color: var(--faint);
+  transition: transform 0.22s var(--ease), color 0.15s;
+  line-height: 1;
+  display: inline-block;
+}
+.subcategory-section.collapsed .subcat-pull-icon {
+  transform: rotate(-90deg);
+}
+.subcat-drawer:hover .subcat-pull-icon { color: var(--accent); }
+
+/* The collapsible body */
+.subcat-body {
+  overflow: hidden;
+  max-height: 9000px;
+  transition: max-height 0.38s var(--ease), opacity 0.28s var(--ease);
+  opacity: 1;
+}
+.subcategory-section.collapsed .subcat-body {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* ============================================================
+   FEATURE: THE READING LAMP
+   Focus mode: everything dims except the hovered card.
+   Toggled from the sidebar. Body class: .lamp-active
+   ============================================================ */
+
+/* Lamp toggle button in sidebar */
+.lamp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-lt);
+  padding: 0.52rem 0 0.32rem;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s;
+  user-select: none;
+}
+.lamp-btn:hover { color: var(--accent); }
+.lamp-btn.active { color: var(--accent); }
+.lamp-btn .lamp-icon {
+  font-size: 0.8rem;
+  transition: opacity 0.2s;
+}
+.lamp-btn.active .lamp-icon { opacity: 1; }
+
+/* When lamp is active, dim the gallery backgrounds */
+body.lamp-active .gallery {
+  transition: background-color 0.38s var(--ease);
+}
+
+/* Dim all cards */
+body.lamp-active .card {
+  opacity: 0.22;
+  filter: saturate(0.4);
+  transition: opacity 0.22s var(--ease), filter 0.22s var(--ease),
+              box-shadow 0.25s var(--ease), transform 0.22s var(--ease);
+}
+
+/* Brighten hovered card and its siblings in the same row */
+body.lamp-active .card:hover {
+  opacity: 1;
+  filter: saturate(1);
+  transform: translateY(-3px) rotate(0deg);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  z-index: 10;
+}
+[data-theme="dark"] body.lamp-active .card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+}
+
+/* Subcategory labels also dim */
+body.lamp-active .subcat-drawer,
+body.lamp-active .subcategory-desc {
+  opacity: 0.3;
+  transition: opacity 0.22s var(--ease);
+}
+
+/* ============================================================
+   FEATURE: THE PENCIL UNDERLINE
+   Select text within a card description or why-field.
+   A floating mark appears; click to persist the annotation.
+   Annotated passages render with a warm underline.
+   ============================================================ */
+
+.annotation-trigger {
+  position: fixed;
+  z-index: 5000;
+  display: none;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 0.28rem 0.6rem;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.13);
+  animation: fadeUp 0.18s both;
+  white-space: nowrap;
+}
+.annotation-trigger.visible { display: flex; }
+
+.annotation-trigger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.15s;
+  line-height: 1.6;
+}
+.annotation-trigger-btn:hover { color: var(--accent); }
+.pencil-glyph {
+  font-size: 0.78rem;
+  display: inline-block;
+  transform: rotate(-35deg);
+  transition: transform 0.18s;
+  font-style: normal;
+}
+.annotation-trigger-btn:hover .pencil-glyph {
+  transform: rotate(-18deg) translateY(-1px);
+}
+
+mark.cat-annotation {
+  background: transparent;
+  border-bottom: 2px solid var(--accent);
+  opacity: 0.8;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  cursor: pointer;
+  position: relative;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+mark.cat-annotation:hover { opacity: 1; border-color: var(--accent-hl); }
+mark.cat-annotation::after {
+  content: '\270F  remove';
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  padding: 0.12rem 0.32rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+mark.cat-annotation:hover::after { opacity: 1; }
+
+/* Card bar indicator when card has annotations */
+.card-bar.has-annotation .card-subcat-tag::before {
+  content: '\270F  ';
+  color: var(--accent-dim);
+  opacity: 0.7;
+  font-size: 0.62rem;
+}
+
+/* ============================================================
+   FEATURE: THE ACCESSIONS STAMP
+   Click the OA stamp: press down, ink ring fires, releases.
+   ============================================================ */
+
+@keyframes stampPress {
+  0%   { transform: rotate(-2.5deg) scale(1);    filter: brightness(1); }
+  22%  { transform: rotate(-2.5deg) scale(0.8);  filter: brightness(0.55); }
+  52%  { transform: rotate(-2.5deg) scale(1.1);  filter: brightness(1.3); }
+  100% { transform: rotate(-2.5deg) scale(1);    filter: brightness(1); }
+}
+@keyframes inkRing {
+  0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.75; }
+  100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; }
+}
+
+.oa-stamp { cursor: pointer; }
+.oa-stamp.pressing {
+  animation: stampPress 0.4s var(--ease) both;
+  pointer-events: none;
+}
+.ink-ring {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--oa-color);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9000;
+  animation: inkRing 0.55s ease-out both;
+}
+
+/* ============================================================
+   FEATURE: SPINE LABELS
+   A fourth density mode. Cards render as horizontal book spines.
+   Clicking a spine expands it to a full card inline.
+   ============================================================ */
+
+body[data-density="spine"] .card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Collapsed spine state */
+body[data-density="spine"] .card {
+  transform: none !important;
+  border-bottom: none;
+  border-left: 3px solid var(--border-lt);
+  border-right: 1px solid var(--border-lt);
+  border-top: none;
+  animation: none;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+body[data-density="spine"] .card:first-child { border-top: 1px solid var(--border-lt); }
+body[data-density="spine"] .card + .card { border-top: 1px solid var(--border-lt); }
+body[data-density="spine"] .card[data-oa="true"] { border-left-color: var(--oa-color); }
+
+body[data-density="spine"] .card:hover {
+  transform: none !important;
+  background: var(--tag-bg);
+  box-shadow: none;
+}
+
+/* Spine row layout */
+body[data-density="spine"] .card-bar,
+body[data-density="spine"] .card-body { display: none; }
+
+.card-spine {
+  display: none;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.38rem 0.85rem;
+  cursor: pointer;
+  user-select: none;
+}
+body[data-density="spine"] .card-spine { display: flex; }
+
+.spine-callnum {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--fainter);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  width: 3.2rem;
+}
+.spine-name {
+  font-family: var(--display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.spine-affil {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--fainter);
+  flex-shrink: 0;
+  display: none;
+}
+@media (min-width: 700px) { .spine-affil { display: block; } }
+
+.spine-oa-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--oa-color);
+  flex-shrink: 0;
+  opacity: 0.7;
+  display: none;
+}
+body[data-density="spine"] .card[data-oa="true"] .spine-oa-dot { display: block; }
+
+/* Expanded spine card */
+body[data-density="spine"] .card.spine-expanded .card-bar,
+body[data-density="spine"] .card.spine-expanded .card-body { display: flex; }
+body[data-density="spine"] .card.spine-expanded .card-bar { flex-direction: row; }
+body[data-density="spine"] .card.spine-expanded .card-body { flex-direction: column; }
+body[data-density="spine"] .card.spine-expanded .card-spine { display: none; }
+body[data-density="spine"] .card.spine-expanded {
+  border-left-width: 4px;
+  border-left-color: var(--accent);
+}
+
+/* Density button addition for spine */
+.density-btns button[data-density="spine"] {
+  letter-spacing: 0.02em;
+  font-size: 0.65rem;
+}
+
+/* ============================================================
+   FEATURE: THE CLIPPING FILE
+   Print-ready view of dog-eared cards.
+   Triggered from sidebar; renders four index cards per page.
+   ============================================================ */
+
+.clip-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 7000;
+  overflow-y: auto;
+  animation: fadeIn 0.25s both;
+  padding: 2rem;
+}
+.clip-header {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.8rem;
+  gap: 1rem;
+}
+.clip-header-title {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--ink);
+}
+.clip-header-meta {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--faint);
+  letter-spacing: 0.08em;
+}
+.clip-header-close {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.28rem 0.65rem;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.clip-header-close:hover { border-color: var(--accent); color: var(--accent); }
+
+.clip-grid {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.clip-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-lt);
+  padding: 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.clip-card-bar {
+  background: var(--card-bar-bg);
+  border-bottom: 2px solid var(--border);
+  padding: 0.28rem 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  color: var(--fainter);
+}
+.clip-card-body { padding: 0.75rem 0.85rem 0.8rem; }
+.clip-card-name {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.18rem;
+  line-height: 1.2;
+}
+.clip-card-url {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--faint);
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+}
+.clip-card-desc {
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.clip-card-why {
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--muted);
+  border-left: 2px solid var(--border);
+  padding-left: 0.6rem;
+  margin-top: 0.45rem;
+  line-height: 1.62;
+}
+.clip-card-why-label {
+  font-family: var(--mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-style: normal;
+  display: block;
+  margin-bottom: 0.1rem;
+}
+
+.clip-empty {
+  max-width: 800px;
+  margin: 4rem auto;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--faint);
+  font-size: 1rem;
+}
+
+.clip-print-btn {
+  display: block;
+  max-width: 800px;
+  margin: 1.5rem auto 0;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.45rem 1.2rem;
+  transition: all 0.15s;
+  text-align: center;
+}
+.clip-print-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Sidebar clipping file link (appears beside marked count) */
+.clip-file-link {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.07em;
+  color: var(--faint);
+  cursor: pointer;
+  transition: color 0.15s;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.clip-file-link:hover { color: var(--accent); }
+.sidebar-marked-footer {
+  display: none;
+  justify-content: space-between;
+  padding: 0.2rem 0 0.4rem;
+  align-items: center;
+}
+.sidebar-marked-footer.visible { display: flex; }
+
+@media print {
+  #sidebar, #sidebar-open, .clip-header-close, .clip-print-btn { display: none !important; }
+  .clip-overlay { position: static; padding: 0; animation: none; }
+  .clip-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  body { background: white; }
+  .clip-card { border: 1px solid #999; }
+}
+
+/* ============================================================
+   FEATURE: THE LIBRARIAN'S PENCIL
+   Empty-state animation: a pencil draws the no-results message
+   letter by letter using CSS animation on a monospace element.
+   ============================================================ */
+
+.librarian-pencil {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+.pencil-drawing {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--faint);
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  border-right: 1.5px solid var(--accent);
+  white-space: nowrap;
+  animation:
+    typewriter 1.4s steps(40) both,
+    blinkCursor 0.7s step-end 1.4s 4;
+  max-width: 34ch;
+  margin: 0 auto;
+}
+.pencil-message {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--faint);
+  margin-top: 0.8rem;
+  opacity: 0;
+  animation: fadeUp 0.5s 1.6s both;
+  line-height: 1.7;
+}
+.pencil-svg {
+  display: block;
+  margin: 0 auto 0.9rem;
+  color: var(--accent);
+  opacity: 0.5;
+  animation: fadeIn 0.4s both;
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to   { width: 34ch; }
+}
+@keyframes blinkCursor {
+  from, to { border-color: var(--accent); }
+  50%      { border-color: transparent; }
+}
