@@ -1056,9 +1056,14 @@ function injectSidebarFeatureControls() {
     clipLink.textContent = 'Open clipping file';
     clipLink.addEventListener('click', openClippingFile);
     markedFooter.appendChild(clipLink);
-    const rc = document.getElementById('result-count');
-    if (rc) rc.parentNode.insertBefore(markedEl, rc.nextSibling);
-    if (rc) rc.parentNode.insertBefore(markedFooter, markedEl.nextSibling);
+    
+/* Insert both after result-count — declare anchor first, use second */
+const resultCountEl = document.getElementById('result-count');
+if (resultCountEl && resultCountEl.parentNode) {
+  resultCountEl.parentNode.insertBefore(markedEl, resultCountEl.nextSibling);
+  resultCountEl.parentNode.insertBefore(markedFooter, markedEl.nextSibling);
+}
+
   }
 }
 
