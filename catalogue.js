@@ -1065,6 +1065,9 @@ if (resultCountEl && resultCountEl.parentNode) {
 }
 
   }
+
+  /* Hidden glyph — the last thing in the sidebar */
+  injectOstrichGlyph();
 }
 
 
@@ -1459,6 +1462,107 @@ function buildLibrariansPencilEmpty(msg1, msg2) {
 }
 
 
+
+
+
+/* ============================================================
+   EASTER EGG: THE HIDDEN GLYPH
+   A barely-visible hexagon at the bottom of the sidebar scroll area.
+   Not labeled. Not explained. For the ones who read to the end.
+
+   The fictional engine it reveals is the one entry in the catalogue
+   that describes something that does not exist and probably should.
+   ============================================================ */
+
+const OSTRICH_ENGINE = {
+  callnum: 'II.∞',
+  subcat: 'The Unmapped Web',
+  name: 'The Engine That Finds What You Were Looking For Before You Knew You Were Looking For It',
+  url: 'www.notreal.library',
+  description: 'Described by its single developer as "more of a feeling than a search engine," it has never successfully returned a result to anyone who was certain what they wanted. Feed it a confident, well-formed query and it returns nothing. Approach it with genuine uncertainty — with the research question still half-formed, the keyword still approximate, the subject still finding its own edges — and it produces, with quiet accuracy, the thing you needed without knowing you needed it. The index is not publicly documented. The crawler\'s methodology has never been explained. The developer maintains that explanation would compromise the results.',
+  why: 'Best consulted at the beginning of a research project, before you have decided what you are looking for. Performs poorly under deadline pressure. Responds very well to not knowing.',
+  note: 'Found only by the patient. The link below does not go anywhere. This is correct.'
+};
+
+function buildOstrichCard() {
+  const card = document.createElement('div');
+  card.className = 'ostrich-card';
+  card.id = 'ostrich-card';
+  card.setAttribute('aria-hidden', 'true');
+
+  card.innerHTML =
+    '<div class="ostrich-card-bar">' +
+      '<span class="ostrich-card-bar-label">' + OSTRICH_ENGINE.subcat + '</span>' +
+      '<span class="ostrich-card-bar-callnum">' + OSTRICH_ENGINE.callnum + '</span>' +
+    '</div>' +
+    '<div class="ostrich-card-body">' +
+      '<div class="ostrich-card-name">' + OSTRICH_ENGINE.name + '</div>' +
+      '<div class="ostrich-card-url">' + OSTRICH_ENGINE.url + '</div>' +
+      '<p class="ostrich-card-desc">' + OSTRICH_ENGINE.description + '</p>' +
+      '<blockquote class="ostrich-card-why">' +
+        '<span class="ostrich-card-why-label">Use when</span>' +
+        OSTRICH_ENGINE.why +
+      '</blockquote>' +
+      '<div class="ostrich-card-note">' +
+        '<span class="manicule" aria-hidden="true">☞</span>' +
+        '<span>' + OSTRICH_ENGINE.note + '</span>' +
+      '</div>' +
+    '</div>';
+
+  return card;
+}
+
+let ostrichVisible = false;
+let ostrichTimer   = null;
+
+function triggerOstrichCard() {
+  /* One at a time. If already visible, let it be. */
+  if (ostrichVisible) return;
+  ostrichVisible = true;
+
+  const card = buildOstrichCard();
+  document.body.appendChild(card);
+
+  /* Trigger entrance on next frame so the transition fires */
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => card.classList.add('visible'))
+  );
+
+  /* Hold for 9 seconds, then leave */
+  ostrichTimer = setTimeout(() => dismissOstrichCard(card), 9000);
+
+  /* Click anywhere on the card to dismiss early */
+  card.addEventListener('click', () => {
+    clearTimeout(ostrichTimer);
+    dismissOstrichCard(card);
+  });
+}
+
+function dismissOstrichCard(card) {
+  card.classList.remove('visible');
+  card.classList.add('leaving');
+  card.addEventListener('transitionend', () => {
+    card.remove();
+    ostrichVisible = false;
+  }, { once: true });
+}
+
+/* Inject the glyph at the bottom of the sidebar scroll area.
+   Called once from injectSidebarFeatureControls so it appears
+   after the sidebar has been populated. */
+function injectOstrichGlyph() {
+  const scroll = document.querySelector('.sidebar-scroll');
+  if (!scroll || document.getElementById('ostrich-glyph')) return;
+
+  const glyph = document.createElement('button');
+  glyph.id = 'ostrich-glyph';
+  glyph.className = 'sidebar-ostrich-glyph';
+  glyph.setAttribute('aria-label', '⬡'); /* Not labeled for a reason */
+  glyph.setAttribute('tabindex', '-1');       /* Not keyboard-navigable — find it or don't */
+  glyph.textContent = '⬡';               /* ⬡ — the outer hexagon, barely visible */
+  glyph.addEventListener('click', triggerOstrichCard);
+  scroll.appendChild(glyph);
+}
 
 /* ============================================================
    EVENT LISTENERS
