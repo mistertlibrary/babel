@@ -7,7 +7,7 @@
 //   url         (string)   — canonical link; always opens in new tab
 //   category    (string)   — "conventional" | "indie" | "institutional"
 //   subcategory (string)   — groups entries within each gallery
-//   description (string)   — 2-4 sentences; honest librarian annotation
+//   description (string)   — 2–6 sentences, proportionate to significance; honest annotation
 //   why         (string)   — when and why to reach for this one specifically
 //   tags        (string[]) — features, behaviors, audience
 //   subject     (string)   — disciplinary focus, if applicable
@@ -505,13 +505,13 @@ const engines = [
     url: "https://stract.com",
     category: "indie",
     subcategory: "Text & General Web",
-    description: "Stract is an open-source search engine built by Mikkel Denker, a computer science student at the Technical University of Denmark, as a thesis project and principled rebellion against the homogeneity of the commercial search landscape. It runs on a genuine independent index and is funded by the EU's NLnet Foundation. Its most distinctive feature is 'Optics': a customization layer letting users apply different search lenses, IndieWeb, academic, ad-free, blogosphere, or write their own. It is a search engine for people who want to see the machinery.",
+    description: "Stract is an open-source search engine built by Mikkel Denker, a computer science student at the Technical University of Denmark, as a thesis project and principled rebellion against the homogeneity of the commercial search landscape. It runs on a genuine independent index and is previously funded through NLnet's NGI0 Entrust program. Its most distinctive feature is 'Optics': a customization layer letting users apply different search lenses, IndieWeb, academic, ad-free, blogosphere, or write their own. It is a search engine for people who want to see the machinery.",
     why: "Use Stract when you want independent-index results with meaningful customization. The Optics system is genuinely powerful: activating the IndieWeb optic makes the results feel like a different internet. Excellent for discussions of search transparency, open-source infrastructure, and why ranking decisions are political as much as technical.",
     tags: ["indie web", "open source", "independent index", "customizable", "no tracking", "EU-funded", "optics"],
     subject: "",
     affiliation: "NLnet Foundation (EU NGI0)",
     openAccess: true,
-    note: "Stract's source code is on GitHub. The Optics system allows anyone to write and share a custom ranking filter, which is as interesting a democratization of search relevance as anything the major engines have offered. Currently running from a server in Denker's office."
+    note: "Stract's source code is on GitHub. The Optics system allows anyone to write and share a custom ranking filter, which is as interesting a democratization of search relevance as anything the major engines have offered. Currently running from a server in the basement of Denker's office."
   },
 
   {
@@ -901,7 +901,7 @@ const engines = [
     url: "https://elephind.com",
     category: "indie",
     subcategory: "Archives & Historical",
-    description: "A search engine specifically for digitized historical newspapers, aggregating collections from hundreds of libraries, archives, and cultural institutions into a single searchable interface. Originally launched in 2012, taken offline in 2023 due to hosting costs, and relaunched as version 2 in late 2025, Elephind is currently the most comprehensive single access point for historical newspaper content that would otherwise require visiting dozens of institutional databases separately. The relaunched version includes AI-powered smart search and over 47 million pages indexed.",
+    description: "A search engine specifically for digitized historical newspapers, aggregating collections from hundreds of libraries, archives, and cultural institutions into a single searchable interface. Originally launched in 2012, taken offline in 2023 due to hosting costs, and relaunched as version 2 in late 2025, Elephind is currently the most comprehensive single access point for historical newspaper content that would otherwise require visiting dozens of institutional databases separately. The relaunched version includes AI-powered smart search across tens of millions of pages, with more being added continuously from contributing institutions.",
     why: "Essential for historical research involving newspapers, journalism history, local history, genealogy, or primary source work. The ability to search across institutional collections simultaneously is genuinely invaluable. Elephind finds the newspaper; the hosting institution provides the text. Always identify the source institution for any result you use.",
     tags: ["newspapers", "historical", "archive", "genealogy", "primary sources", "AI-assisted"],
     subject: "history, journalism, genealogy",
@@ -3039,5 +3039,19 @@ const engines = [
     note: "The Claremont Colleges' shared library model, the Claremont University Consortium, is one of the older and more successful small liberal arts college library partnerships in the United States. The digital collections reflect a century of deliberate, humanistic collecting across seven institutions."
   }
 
+,
 
+  {
+    name: "Versailles Collections",
+    url: "https://collections.chateauversailles.fr/",
+    category: "institutional",
+    subcategory: "Art Museums",
+    description: "The Palace of Versailles maintains an online collections database covering approximately 90,000 works spanning five centuries of French history: paintings, sculptures, furniture, decorative objects, prints, drawings, and the extraordinary print collection of over 16,000 engraved portraits assembled by Louis-Philippe across more than twenty-five years. The interface, available in French and English, offers gigapixel-resolution imaging on selected works and curatorial notes written and maintained by the palace's own conservators. Collection records describe objects across all periods of Versailles as both an inhabited royal palace and a national museum.",
+    why: "The range of the collection makes it relevant far beyond French history narrowly conceived: the decorative arts holdings are primary sources for eighteenth-century European material culture, the portrait engraving collection is remarkable for iconographic research, and the curatorial notes, written in-house rather than by contracted cataloguers, carry institutional authority. For French history, art history, and the history of royal courts, there is no substitute.",
+    tags: ["French history", "decorative arts", "European painting", "portraits", "prints", "bilingual", "gigapixel"],
+    subject: "French history, art history, decorative arts",
+    affiliation: "Établissement public du château, du musée et du domaine national de Versailles",
+    openAccess: true,
+    note: "The collections interface at collections.chateauversailles.fr has a documented history of intermittent availability. If the service returns an error on first visit, try again; it is a known issue rather than a defunct resource. The broader palace site at en.chateauversailles.fr offers stable access to collection news and acquisitions while the search interface is down."
+  }
 ]; // end engines[]
