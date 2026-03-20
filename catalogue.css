@@ -1588,3 +1588,136 @@ body[data-density="spine"] .card.spine-expanded {
   from, to { border-color: var(--accent); }
   50%      { border-color: transparent; }
 }
+
+
+/* ============================================================
+   EASTER EGG: THE HIDDEN GLYPH + RISING CARD
+   A hexagon, barely visible, at the bottom of the sidebar.
+   For the patient. For the ones who read to the end.
+   ============================================================ */
+
+.sidebar-ostrich-glyph {
+  display: block;
+  text-align: center;
+  padding: 1.8rem 1.2rem 1.2rem;
+  font-size: 0.72rem;
+  color: var(--border-lt);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.4s ease, transform 0.4s ease;
+  line-height: 1;
+  /* Deliberately difficult to notice */
+  opacity: 0.35;
+}
+.sidebar-ostrich-glyph:hover {
+  color: var(--accent);
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* The rising card */
+.ostrich-card {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: min(440px, 92vw);
+  background: var(--active-card-bg, var(--card-bg));
+  border: 1px solid var(--border-lt);
+  border-bottom: none;
+  z-index: 8500;
+  padding: 0;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.14);
+  /* The entrance: rises with slight overshoot, like something
+     that has been waiting a long time and arrives with momentum */
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-theme="dark"] .ostrich-card {
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+}
+.ostrich-card.visible {
+  transform: translateX(-50%) translateY(0%);
+}
+/* The exit: same speed, same overshoot — it leaves the way it arrived */
+.ostrich-card.leaving {
+  transform: translateX(-50%) translateY(105%);
+  transition: transform 0.52s cubic-bezier(0.36, 0, 0.66, -0.56);
+}
+
+/* Card interior — styled as a real catalogue card */
+.ostrich-card-bar {
+  background: var(--card-bar-bg);
+  border-bottom: 2px solid var(--border);
+  padding: 0.32rem 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ostrich-card-bar-label {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fainter);
+}
+.ostrich-card-bar-callnum {
+  font-family: var(--mono);
+  font-size: 0.54rem;
+  color: var(--fainter);
+  letter-spacing: 0.05em;
+}
+.ostrich-card-body {
+  padding: 1rem 1.2rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.ostrich-card-name {
+  font-family: var(--display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.25;
+}
+.ostrich-card-url {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--faint);
+  letter-spacing: 0.01em;
+}
+.ostrich-card-desc {
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+.ostrich-card-why {
+  font-family: var(--serif);
+  font-size: 0.84rem;
+  font-style: italic;
+  color: var(--muted);
+  border-left: 2px solid var(--accent-dim);
+  padding-left: 0.78rem;
+  line-height: 1.68;
+}
+.ostrich-card-why-label {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-style: normal;
+  display: block;
+  margin-bottom: 0.12rem;
+}
+.ostrich-card-note {
+  display: flex;
+  gap: 0.42rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--border-dash);
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  color: var(--faint);
+  font-style: italic;
+  line-height: 1.6;
+}
