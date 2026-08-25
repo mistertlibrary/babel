@@ -1,0 +1,29 @@
+{
+  "lyceum": 1,
+  "_note": "Generated for the Lyceum hub's unified search. Section titles are the guide's own headings. 'keywords' is optional and never displayed: it lets an evocative title stay evocative while remaining findable. Leave arrays empty until you have something to add.",
+  "title": "Babel: The Thompson Catalogue of Engines",
+  "description": "A comprehensive, annotated guide to search engines: conventional, indie web, and institutional repositories. A librarian's field guide.",
+  "url": "https://mistertlibrary.github.io/babel/",
+  "series": "",
+  "course": "",
+  "subjects": [
+    "Basic Information and General Reference"
+  ],
+  "sections": [
+    {
+      "title": "The Familiar Territories",
+      "anchor": "#gallery-i-heading",
+      "keywords": []
+    },
+    {
+      "title": "The Unmapped Web",
+      "anchor": "#gallery-ii-heading",
+      "keywords": []
+    },
+    {
+      "title": "Archives & Institutional Repositories",
+      "anchor": "#gallery-iii-heading",
+      "keywords": []
+    }
+  ]
+}
