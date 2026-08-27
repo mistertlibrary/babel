@@ -19,15 +19,16 @@ html { scroll-behavior: smooth; font-size: 18px; }
   --accent:        #7c5e1e;
   --accent-hl:     #a07828;
   --accent-dim:    #a08040;
-  --muted:         #5e4e38;
-  --faint:         #8c7a62;
-  --fainter:       #b0a090;
+  --on-accent:     #ffffff;
+  --muted:         #4B3E2D;
+  --faint:         #574C3D;
+  --fainter:       #68594A;
   --border:        #c4aa78;
   --border-lt:     #d8c8a0;
   --border-dash:   #cbb890;
   --tag-bg:        #ddd0b0;
   --tag-fg:        #5e4e38;
-  --oa-color:      #2e6030;
+  --oa-color:      #254E27;
   --oa-bg:         rgba(46, 96, 48, 0.1);
 
   /* Gallery temperature variants — light */
@@ -61,9 +62,10 @@ html { scroll-behavior: smooth; font-size: 18px; }
   --accent:        #d4a840;
   --accent-hl:     #e8c055;
   --accent-dim:    #a88030;
-  --muted:         #a09070;
-  --faint:         #685848;
-  --fainter:       #403428;
+  --on-accent:     #1c1710;
+  --muted:         #B8AC94;
+  --faint:         #AA9784;
+  --fainter:       #A2866A;
   --border:        #2c2218;
   --border-lt:     #3c3020;
   --border-dash:   #382c1a;
@@ -670,13 +672,13 @@ body[data-density="compact"] .card:hover .card-why { display: block; }
   border: 1px solid transparent;
   line-height: 1.5;
 }
-.tag:hover, .tag.active { background: var(--accent); color: #fff; }
+.tag:hover, .tag.active { background: var(--accent); color: var(--on-accent); }
 .tag-subject {
   color: var(--accent);
   border-color: var(--border-lt);
   background: transparent;
 }
-.tag-subject:hover, .tag-subject.active { background: var(--accent); color: #fff; border-color: transparent; }
+.tag-subject:hover, .tag-subject.active { background: var(--accent); color: var(--on-accent); border-color: transparent; }
 
 /* Note / Marginalia — with the manicule */
 .card-note {
