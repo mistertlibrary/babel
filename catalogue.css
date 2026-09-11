@@ -1,15 +1,8 @@
-/* ============================================================
-   CATALOGUE OF ENGINES — catalogue.css
-   A librarian arranged these rules. He had opinions.
-   ============================================================ */
 
-/* ---- RESET ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 18px; }
 
-/* ---- DESIGN TOKENS ---- */
 :root {
-  /* Palette: light (morning reading room) */
   --bg:            #e8dfc8;
   --bg-sidebar:    #dfd6bf;
   --card-bg:       #f5edda;
@@ -31,7 +24,6 @@ html { scroll-behavior: smooth; font-size: 18px; }
   --oa-color:      #254E27;
   --oa-bg:         rgba(46, 96, 48, 0.1);
 
-  /* Gallery temperature variants — light */
   --g1-bg:         #e8dfc8;
   --g1-card:       #f5edda;
   --g2-bg:         #f0e4c4;
@@ -41,12 +33,10 @@ html { scroll-behavior: smooth; font-size: 18px; }
   --g3-card:       #f8ecc8;
   --g3-bar:        rgba(120, 90, 10, 0.07);
 
-  /* Typography */
   --display:       'Playfair Display', Georgia, serif;
   --serif:         'EB Garamond', Georgia, serif;
   --mono:          'JetBrains Mono', 'Courier New', monospace;
 
-  /* Layout */
   --sidebar-w:     272px;
   --max-w:         1320px;
   --ease:          cubic-bezier(0.4, 0, 0.2, 1);
@@ -82,8 +72,38 @@ html { scroll-behavior: smooth; font-size: 18px; }
   --g3-card:       #221808;
   --g3-bar:        rgba(180, 130, 20, 0.07);
 }
+[data-theme="contrast"] {
+  --bg:            #000000;
+  --bg-sidebar:    #000000;
+  --card-bg:       #000000;
+  --card-bar-bg:   transparent;
+  --ink:           #ffffff;
+  --ink-soft:      #ffffff;
+  --accent:        #ffd400;
+  --accent-hl:     #ffffff;
+  --accent-dim:    #ffd400;
+  --on-accent:     #000000;
+  --muted:         #ffffff;
+  --faint:         #ffffff;
+  --fainter:       #ffffff;
+  --border:        #ffffff;
+  --border-lt:     #ffffff;
+  --border-dash:   #ffffff;
+  --tag-bg:        #000000;
+  --tag-fg:        #ffd400;
+  --oa-color:      #ffd400;
+  --oa-bg:         transparent;
+  --g1-bg:         #000000;
+  --g1-card:       #000000;
+  --g2-bg:         #000000;
+  --g2-card:       #000000;
+  --g2-bar:        transparent;
+  --g3-bg:         #000000;
+  --g3-card:       #000000;
+  --g3-bar:        transparent;
+}
 
-/* ---- BASE ---- */
+
 body {
   font-family: var(--serif);
   font-size: 1rem;
@@ -94,7 +114,6 @@ body {
   min-height: 100vh;
 }
 
-/* Grain texture: a single fixed overlay, extremely faint */
 body::before {
   content: '';
   position: fixed;
@@ -957,6 +976,7 @@ footer {
 
 .dog-ear {
   position: absolute;
+  background: none;
   top: 0;
   right: 0;
   width: 0;
@@ -1592,14 +1612,12 @@ body[data-density="spine"] .card.spine-expanded {
 }
 
 
-/* ============================================================
-   EASTER EGG: THE HIDDEN GLYPH + RISING CARD
-   A hexagon, barely visible, at the bottom of the sidebar.
-   For the patient. For the ones who read to the end.
-   ============================================================ */
 
 .sidebar-ostrich-glyph {
   display: block;
+  background: none;
+  border: 0;
+  font-family: inherit;
   text-align: center;
   padding: 1.8rem 1.2rem 1.2rem;
   font-size: 0.72rem;
@@ -1608,7 +1626,6 @@ body[data-density="spine"] .card.spine-expanded {
   user-select: none;
   transition: color 0.4s ease, transform 0.4s ease;
   line-height: 1;
-  /* Deliberately difficult to notice */
   opacity: 0.35;
 }
 .sidebar-ostrich-glyph:hover {
@@ -1617,7 +1634,6 @@ body[data-density="spine"] .card.spine-expanded {
   transform: scale(1.15);
 }
 
-/* The rising card */
 .ostrich-card {
   position: fixed;
   bottom: 0;
@@ -1630,8 +1646,6 @@ body[data-density="spine"] .card.spine-expanded {
   z-index: 8500;
   padding: 0;
   box-shadow: 0 -8px 40px rgba(0,0,0,0.14);
-  /* The entrance: rises with slight overshoot, like something
-     that has been waiting a long time and arrives with momentum */
   transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 [data-theme="dark"] .ostrich-card {
@@ -1640,13 +1654,11 @@ body[data-density="spine"] .card.spine-expanded {
 .ostrich-card.visible {
   transform: translateX(-50%) translateY(0%);
 }
-/* The exit: same speed, same overshoot — it leaves the way it arrived */
 .ostrich-card.leaving {
   transform: translateX(-50%) translateY(105%);
   transition: transform 0.52s cubic-bezier(0.36, 0, 0.66, -0.56);
 }
 
-/* Card interior — styled as a real catalogue card */
 .ostrich-card-bar {
   background: var(--card-bar-bg);
   border-bottom: 2px solid var(--border);
@@ -1723,3 +1735,35 @@ body[data-density="spine"] .card.spine-expanded {
   font-style: italic;
   line-height: 1.6;
 }
+
+[data-theme="contrast"] body::before { display: none; }
+
+[data-theme="contrast"] .card { border: 1px solid var(--border); }
+
+[data-theme="contrast"] .card:hover,
+[data-theme="contrast"] .card:focus-within {
+  box-shadow: none;
+  outline: 3px solid var(--accent);
+  outline-offset: -1px;
+}
+
+[data-theme="contrast"] body.lamp-active .card {
+  opacity: 1;
+  filter: none;
+}
+
+[data-theme="contrast"] body.lamp-active .card:hover {
+  box-shadow: none;
+  outline: 3px solid var(--accent);
+  outline-offset: -1px;
+}
+
+[data-theme="contrast"] body.lamp-active .subcat-drawer,
+[data-theme="contrast"] body.lamp-active .subcategory-desc { opacity: 1; }
+
+[data-theme="contrast"] .ostrich-card {
+  box-shadow: none;
+  border: 2px solid var(--border);
+}
+
+[data-theme="contrast"] #sidebar.open { box-shadow: none; border-right: 1px solid var(--border); }

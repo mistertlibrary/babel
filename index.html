@@ -2,61 +2,13 @@
 <html lang="en" data-theme="light">
 <head>
 
-<!--
-  ╔══════════════════════════════════════════════════════════════════╗
-  ║         CATALOGUE OF ENGINES — ACCESSION LOG                    ║
-  ╚══════════════════════════════════════════════════════════════════╝
-
-  Entry 001 — On the occasion of the first ingestion:
-  The conventional engines arrived pre-organized.
-  The indie ones arrived as things that distrust organization tend to.
-  Both conditions seem correct.
-
-  Entry 002 — On the subject of the Internet Archive:
-  Attempted classification. Filed under: everything. Also: faith.
-  Note: there is a ten percent chance of finding it checked out.
-  The lawyers are involved. They are always involved.
-
-  Entry 003 — On the hidden things:
-  The patron who types B-A-B-E-L should be rewarded.
-  The patron who knows the Konami code will find the staff.
-  The patron who clicks the epigraph seven times will find Borges.
-  Arrangements have been made throughout.
-
-  Entry 004 — On duration:
-  Someone will stay past closing tonight.
-  We have left a message for them in the footer.
-  It takes three minutes of reading before it becomes visible.
-  This seems approximately correct.
-
-  Entry 005 — On the manicule:
-  The pointing hand (☞) marks the notes.
-  It was used in manuscripts from the 12th century forward
-  to draw readers' attention to passages worth remembering.
-  We have restored it to active duty.
-
-  Entry 006 — On incompleteness:
-  The catalogue is never finished.
-  Every gap is an invitation.
-  Every missing entry is a question addressed to the reader:
-  what did we not think to look for?
-  We have not, in truth, made peace with this.
-  We have made a catalogue instead.
-
-  ☞ If you are reading this, you are the right kind of reader.
--->
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="A comprehensive, annotated guide to search engines: conventional, indie web, and institutional repositories. A librarian's field guide.">
   <title>Babel: The Thompson Catalogue of Engines</title>
-  <!-- Reader preferences, shared across the Lyceum network. See librarylyceum/PREFS-README.md -->
   <script src="/librarylyceum/lyceum-prefs.js" data-guide="babel"></script>
 
-  <!-- Self-hosted from the Lyceum's own font store. Bunny Fonts was GDPR-clean
-       and made no Google handshake, which was the right call at the time; this
-       goes one step further and makes no third-party request at all. Nine faces,
-       served from the same origin as everything else. -->
   <style>
     @font-face { font-family:'Playfair Display'; font-style:normal; font-weight:400; font-display:swap;
       src:url("/librarylyceum/fonts/playfair-display-400.woff2") format("woff2"); }
@@ -67,8 +19,6 @@
     @font-face { font-family:'Playfair Display'; font-style:italic; font-weight:700; font-display:swap;
       src:url("/librarylyceum/fonts/playfair-display-700-italic.woff2") format("woff2"); }
 
-    /* EB Garamond is a variable face covering 400 through 800, so one file
-       answers the 400, 500 and 600 this guide asks for. */
     @font-face { font-family:'EB Garamond'; font-style:normal; font-weight:400 800; font-display:swap;
       src:url("/librarylyceum/fonts/eb-garamond-400-800.woff2") format("woff2"); }
     @font-face { font-family:'EB Garamond'; font-style:italic; font-weight:400 800; font-display:swap;
@@ -82,7 +32,6 @@
       src:url("/librarylyceum/fonts/jetbrains-mono-500.woff2") format("woff2"); }
   </style>
 
-  <!-- Theme applied before stylesheet to prevent flash of wrong theme -->
   <script>
     (function() {
       var t = localStorage.getItem('cat-theme');
@@ -94,14 +43,10 @@
 </head>
 <body>
 
-<!-- ============================================================
-     SIDEBAR — navigation, filter, controls
-============================================================ -->
 <aside id="sidebar" aria-label="Navigation and search">
 
   <div class="sidebar-head">
     <div class="sidebar-brand">
-      <!-- The hexagon: it was always here. -->
       <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M6.5 1L12 4.25V10.75L6.5 14L1 10.75V4.25Z" stroke="currentColor" stroke-width="1.1"/>
         <path d="M6.5 3.5L9.5 5.25V8.75L6.5 10.5L3.5 8.75V5.25Z" stroke="currentColor" stroke-width="0.6" opacity="0.45"/>
@@ -116,7 +61,7 @@
   </div>
 
   <div class="sidebar-controls">
-    <button id="theme-toggle" aria-label="Toggle light/dark theme">
+    <button id="theme-toggle" aria-label="Light theme. Activate for Dark.">
       <span class="t-icon" id="theme-icon">&#9728;&#65039;</span>
       <span id="theme-label">Light</span>
     </button>
@@ -146,7 +91,6 @@
 
 </aside>
 
-<!-- Floating open button (visible when sidebar is closed) -->
 <button id="sidebar-open" aria-label="Open navigation" title="Open navigation">
   <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M7 1L13 4.5V11.5L7 15L1 11.5V4.5Z" stroke="currentColor" stroke-width="1.2"/>
@@ -154,9 +98,6 @@
   </svg>
 </button>
 
-<!-- ============================================================
-     MAIN CONTENT
-============================================================ -->
 <div id="main-wrap">
 
   <header>
@@ -164,7 +105,6 @@
     <h1>The Thompson Catalogue<br>of Engines</h1>
     <p class="subtitle">From the familiar to the principled, the commercial to the forgotten.</p>
 
-    <!-- Click seven times. Babel has a thing for sevens. -->
     <blockquote class="epigraph" role="note" title="Click seven times for more Borges">
       &#8220;When it was proclaimed that the Library contained all books, the first impression was one of extravagant happiness.&#8221;
       <cite>&#8212; Jorge Luis Borges, &#8220;The Library of Babel&#8221; (1941)</cite>
@@ -173,7 +113,6 @@
 
   <main>
 
-    <!-- Gallery I: Conventional -->
     <section class="gallery" id="gallery-i" aria-labelledby="gallery-i-heading">
       <div class="gallery-header">
                   <p class="gallery-numeral">Gallery I</p>
@@ -186,7 +125,6 @@
       <div id="grid-conventional"></div>
     </section>
 
-    <!-- Gallery II: The Indie Web -->
     <section class="gallery" id="gallery-ii" aria-labelledby="gallery-ii-heading">
       <div class="gallery-header">
                   <p class="gallery-numeral">Gallery II</p>
@@ -199,7 +137,6 @@
       <div id="grid-indie"></div>
     </section>
 
-    <!-- Gallery III: Archives & Institutional Repositories -->
     <section class="gallery" id="gallery-iii" aria-labelledby="gallery-iii-heading">
       <div class="gallery-header">
                   <p class="gallery-numeral">Gallery III</p>
@@ -215,10 +152,6 @@
   </main>
 
   <footer>
-    <!--
-      The catalogue is always incomplete.
-      That is its most honest feature.
-    -->
     <svg class="footer-hex" width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M13 1.5L24.5 8V22L13 28.5L1.5 22V8Z" stroke="currentColor" stroke-width="0.85"/>
       <path d="M13 5.5L20.5 9.75V18.25L13 22.5L5.5 18.25V9.75Z" stroke="currentColor" stroke-width="0.55" opacity="0.45"/>
@@ -233,9 +166,8 @@
     </p>
   </footer>
 
-</div><!-- /#main-wrap -->
+</div>
 
-<!-- Data file must load before the logic file -->
 <script src="catalogue-data.js"></script>
 <script src="catalogue.js"></script>
 

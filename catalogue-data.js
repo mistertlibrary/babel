@@ -1,25 +1,6 @@
-// catalogue-data.js
-// The engines. 211 of them, as of this writing.
-// To add an entry, append an object to the array following the schema below.
-//
-// Schema:
-//   name        (string)   — display name
-//   url         (string)   — canonical link; always opens in new tab
-//   category    (string)   — "conventional" | "indie" | "institutional"
-//   subcategory (string)   — groups entries within each gallery
-//   description (string)   — 2–6 sentences, proportionate to significance; honest annotation
-//   why         (string)   — when and why to reach for this one specifically
-//   tags        (string[]) — features, behaviors, audience
-//   subject     (string)   — disciplinary focus, if applicable
-//   affiliation (string)   — parent institution or organization
-//   openAccess  (boolean)  — freely accessible without subscription
-//   note        (string)   — the odd, the useful, the delightful; manicule field
-//
-// ============================================================
 
 const engines = [
 
-  /* ---- CONVENTIONAL ---- */
 
   {
     name: "Google",
@@ -484,7 +465,6 @@ const engines = [
   },
 
 
-  /* ---- INDIE — TEXT & GENERAL WEB ---- */
 
   {
     name: "Marginalia Search",
@@ -808,7 +788,6 @@ const engines = [
     note: "The scale is the point. Alpha Search doesn't aspire to be Google; it aspires to demonstrate that you don't have to be Google to build a search engine."
   },
 
-  /* ---- INDIE — THE OLD WEB ---- */
 
   {
     name: "Old'aVista",
@@ -866,7 +845,6 @@ const engines = [
     note: "html5.org predates both the W3C's formal HTML5 specification and MDN's rise to documentation dominance. Its search tool reflects its role as early-adopter reference infrastructure."
   },
 
-  /* ---- INDIE — ARCHIVES & HISTORICAL ---- */
 
   {
     name: "Discmaster",
@@ -952,7 +930,6 @@ const engines = [
     note: "The IndieWeb is organized around owning your data and publishing on your own domain. Its standards include webmentions, microformats, and IndieAuth. James G.'s search tool is one practical way to explore what the community has built."
   },
 
-  /* ---- INDIE — FORUMS & COMMUNITY ---- */
 
   {
     name: "Boardreader",
@@ -982,7 +959,6 @@ const engines = [
     note: "Reddit's API restrictions, implemented in 2023, eliminated many of the third-party tools that made the platform's content more searchable and accessible to researchers. The native search has improved somewhat in response. The restrictions also ended several significant academic research programs that depended on the API. That tradeoff is worth examining."
   },,
 
-  /* ---- INDIE — IMAGE, CODE & MEDIA ---- */
 
   {
     name: "greenscreens.art",
@@ -1040,7 +1016,6 @@ const engines = [
     note: "The encyclopedic model of knowledge organization predates digital computing by centuries. Understanding how it translates into search interface design is relevant to anyone studying information architecture."
   },
 
-  /* ---- INDIE — META-SEARCH & CLUSTERING ---- */
 
   {
     name: "Carrot2",
@@ -1154,7 +1129,6 @@ const engines = [
     note: "Federation is a concept from distributed systems: independent nodes that interoperate without central authority. The challenge of applying this to search is that an index's value scales with its size. Whether federation can overcome that challenge is an open question."
   },
 
-  /* ---- INDIE — SELF-HOSTED & OPEN SOURCE ---- */
 
   {
     name: "Yioop",
@@ -1185,7 +1159,6 @@ const engines = [
   },
 
 
-  /* ---- INSTITUTIONAL — GLOBAL AGGREGATORS ---- */
 
   {
     name: "Digital Public Library of America",
@@ -1286,7 +1259,6 @@ const engines = [
   },
 
 
-  /* ---- INSTITUTIONAL — U.S. ART MUSEUMS ---- */
 
   {
     name: "Metropolitan Museum of Art Collection",
@@ -1611,7 +1583,6 @@ const engines = [
   },
 
 
-  /* ---- INSTITUTIONAL — U.S. NATURAL HISTORY & SCIENCE ---- */
 
   {
     name: "AMNH Digital Collections",
@@ -1669,7 +1640,6 @@ const engines = [
     note: "The NLM's Digital Collections are separate from PubMed and the NLM Catalog. They focus on historical and rare materials. PubMed remains the primary resource for contemporary biomedical literature."
   },
 
-  /* ---- INSTITUTIONAL — U.S. LIBRARIES & ARCHIVES ---- */
 
   {
     name: "Library of Congress Digital Collections",
@@ -1798,7 +1768,6 @@ const engines = [
   },
 
 
-  /* ---- INSTITUTIONAL — U.S. STATE & LOCAL ---- */
 
   {
     name: "Chronicling America",
@@ -1884,7 +1853,6 @@ const engines = [
     note: "The Bancroft Library at UC Berkeley maintains its own dedicated digital collections interface with stronger search features for the California and Western materials specifically."
   },
 
-  /* ---- INSTITUTIONAL — UNITED KINGDOM ---- */
 
   {
     name: "British Library Manuscripts",
@@ -1957,7 +1925,6 @@ const engines = [
   },
 
 
-  /* ---- INSTITUTIONAL — EUROPE ---- */
 
   {
     name: "Deutsche Digitale Bibliothek",
@@ -2029,7 +1996,6 @@ const engines = [
     note: "The Getty Research Institute's special collections, searchable through the Portal, include the Archives of the History of Art and the Julius Held papers."
   },
 
-  /* ---- INSTITUTIONAL — AMERICAS, ASIA, MIDDLE EAST & AFRICA ---- */
 
   {
     name: "Qatar Digital Library",
@@ -2102,7 +2068,6 @@ const engines = [
   },
 
 
-  /* ---- INSTITUTIONAL — ACADEMIC TEXTS & BOOKS ---- */
 
   {
     name: "Project Gutenberg",
@@ -2230,7 +2195,6 @@ const engines = [
     note: "The collection's preservation of pre-Holocaust Eastern European Jewish publishing constitutes a form of cultural memory with no institutional equivalent. Many texts here were published in cities whose Jewish communities were destroyed in the Second World War."
   },
 
-  /* ---- INSTITUTIONAL — GOVERNMENT & DECLASSIFIED ---- */
 
   {
     name: "CIA FOIA Reading Room",
@@ -2249,7 +2213,6 @@ const engines = [
 
 
 
-  /* ---- ART MUSEUMS (new U.S. entries) ---- */
 
   {
     name: "Detroit Institute of Arts",
@@ -2559,7 +2522,6 @@ const engines = [
     note: "The Nez Perce War of 1877, in which Chief Joseph led approximately 700 Nimíipuu people on a 1,170-mile retreat toward Canada before surrendering, is documented in the park's collection and literature. Chief Joseph's surrender speech is one of the most significant primary sources in American indigenous history."
   },
 
-  /* ---- AMERICAS, ASIA, MIDDLE EAST & AFRICA (new entries) ---- */
 
   {
     name: "Louvre Abu Dhabi",
@@ -2701,7 +2663,6 @@ const engines = [
     note: "The Powerhouse Museum's move from its Ultimo location to a new Parramatta facility has been contentious in Sydney cultural politics since 2015. The debate touches on questions of community access, Western Sydney's cultural infrastructure, and who museums serve."
   },
 
-  /* ---- EUROPE (new entries) ---- */
 
   {
     name: "Städel Museum",
@@ -2801,7 +2762,6 @@ const engines = [
     note: "Liverpool's International Slavery Museum, opened in 2007, was the first national museum in Britain to address the transatlantic slave trade as its primary subject. Its existence in Liverpool, which profited significantly from the trade, is itself a meaningful institutional statement."
   },
 
-  /* ---- U.S. NATURAL HISTORY & SCIENCE (additions) ---- */
 
   {
     name: "National Air and Space Museum",
@@ -2845,7 +2805,6 @@ const engines = [
     note: "The NYBG library's digitized botanical illustration collection spans from the sixteenth century forward and includes hand-colored plates from the great botanical atlases that documented the age of exploration's plant discoveries. The visual quality is exceptional."
   },
 
-  /* ---- U.S. STATE & LOCAL (additions) ---- */
 
   {
     name: "Chicago Public Library Digital Collections",
@@ -2905,7 +2864,6 @@ const engines = [
 
 
 
-  /* ---- INDIE — ARCHIVES & HISTORICAL (additions) ---- */
 
   {
     name: "Modernist Journals Project",
@@ -2963,7 +2921,6 @@ const engines = [
     note: "An November 2025 Atlantic investigation found that Common Crawl misrepresented its compliance with paywalls and publisher removal requests. The organization published a response. The episode is instructive for discussions of open data ethics, AI training provenance, and the gap between stated and actual data governance practices."
   },
 
-  /* ---- INSTITUTIONAL — U.S. LIBRARIES & ARCHIVES (additions) ---- */
 
   {
     name: "Newberry Library",
@@ -2993,7 +2950,6 @@ const engines = [
     note: "The HTRC's Extracted Features dataset, derived from the full HathiTrust corpus, is freely downloadable and includes page-level token counts, part-of-speech tags, and line information for the entire collection. It is one of the most significant open datasets for computational literary studies."
   },
 
-  /* ---- INSTITUTIONAL — GLOBAL AGGREGATORS (additions) ---- */
 
   {
     name: "Google Books",
@@ -3009,7 +2965,6 @@ const engines = [
     note: "The Authors Guild v. Google litigation, which ended in Google's favor in 2016 after a decade of proceedings, established fair use protections for large-scale text digitization for search purposes. The legal reasoning in that case is worth understanding for anyone studying the intersection of copyright and digital scholarship."
   },
 
-  /* ---- INSTITUTIONAL — ACADEMIC TEXTS & BOOKS (additions) ---- */
 
   {
     name: "Wellcome Library Digital Collections",
@@ -3054,4 +3009,4 @@ const engines = [
     openAccess: true,
     note: "The collections interface at collections.chateauversailles.fr has a documented history of intermittent availability. If the service returns an error on first visit, try again; it is a known issue rather than a defunct resource. The broader palace site at en.chateauversailles.fr offers stable access to collection news and acquisitions while the search interface is down."
   }
-]; // end engines[]
+]; 

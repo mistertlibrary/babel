@@ -1,12 +1,4 @@
-/* ============================================================
-   CATALOGUE OF ENGINES — catalogue.js
-   The logic. The mischief. The small hours.
-   Version 2.0 — ground-up redesign
-   ============================================================ */
 
-/* ============================================================
-   SUBCATEGORY DESCRIPTIONS
-============================================================ */
 const SUBCATEGORY_DESCRIPTIONS = {
   "North America": "The engines that defined what most English-speaking users think search means. What looks like a neutral utility is, on closer inspection, a series of choices about relevance, monetization, and attention that compounded quietly into infrastructure. The portal era — Yahoo's human editors, AOL's walled garden — represented a different bet about what the web needed: not an algorithm, but a librarian. That bet lost. It is worth asking why.",
   "Europe & Russia": "The regional challengers that persisted where global platforms could not or would not adapt: Yandex built to understand Russian morphology before Google could; Qwant built explicitly as a GDPR-native alternative to American surveillance capitalism; Mojeek built by conviction that an independent index was worth the considerable effort. That several survive at all is a small argument about the importance of competition in information infrastructure.",
@@ -32,9 +24,6 @@ const SUBCATEGORY_DESCRIPTIONS = {
   "Government & Declassified": "The state's paper trail, released under legal compulsion or historical inevitability. The CIA's FOIA Reading Room is the endpoint of a process that begins with a government secret and ends, decades later, with a searchable PDF. The gap between what is released and what remains classified is itself a form of evidence, if you know what you are looking for."
 };
 
-/* ============================================================
-   AUTHOR QUOTES — triggered by typing their names in the filter
-============================================================ */
 const AUTHOR_QUOTES = {
   "robbins": {
     text: "We're our own dragons as well as our own heroes, and we have to rescue ourselves from ourselves.",
@@ -54,9 +43,6 @@ const AUTHOR_QUOTES = {
   }
 };
 
-/* ============================================================
-   STAFF PICKS — Konami code easter egg
-============================================================ */
 const STAFF_PICKS = [
   {
     name: "Wiby",
@@ -84,9 +70,6 @@ const STAFF_PICKS = [
   }
 ];
 
-/* ============================================================
-   SPECIAL SEARCH RESPONSES
-============================================================ */
 const SPECIAL_SEARCHES = {
   "everything": {
     header: "The catalogue contains everything. That is its most dangerous feature.",
@@ -110,14 +93,8 @@ const SPECIAL_SEARCHES = {
   }
 };
 
-/* ============================================================
-   SESSION STATE
-============================================================ */
 const IA_IS_BORROWED = Math.random() < 0.10;
 
-/* ============================================================
-   FILTER MATCH
-============================================================ */
 function matchesFilter(e, query) {
   return (
     e.name.toLowerCase().includes(query)             ||
@@ -131,22 +108,17 @@ function matchesFilter(e, query) {
   );
 }
 
-/* ============================================================
-   BUILD CARD — the index card DOM
-============================================================ */
 function buildCard(engine, index) {
   const card = document.createElement('article');
   card.className = 'card';
   card.style.animationDelay = Math.min(index * 0.022, 0.55) + 's';
   card.dataset.oa = engine.openAccess ? 'true' : 'false';
 
-  // data-secret attributes for curious source readers
   if (engine.name === 'Marginalia Search') card.dataset.secret = 'anti-seo: the thesis, not the limitation';
   if (engine.name === 'Wiby')             card.dataset.secret = 'surprise-me: designed as a philosophy, not a feature';
   if (engine.name === 'Internet Archive') card.dataset.secret = 'universal-access-to-all-knowledge';
   if (engine.name === 'Perplexity AI')    card.dataset.secret = 'verify-the-citations: the confidence is not the accuracy';
 
-  /* --- Classification bar --- */
   const bar = document.createElement('div');
   bar.className = 'card-bar';
   const subTag = document.createElement('span');
@@ -158,11 +130,9 @@ function buildCard(engine, index) {
   bar.appendChild(subTag);
   bar.appendChild(callNum);
 
-  /* --- Card body --- */
   const body = document.createElement('div');
   body.className = 'card-body';
 
-  /* Name row */
   const nameRow = document.createElement('div');
   nameRow.className = 'card-namerow';
   const nameLink = document.createElement('a');
@@ -189,19 +159,16 @@ function buildCard(engine, index) {
   }
   body.appendChild(nameRow);
 
-  /* URL */
   const urlEl = document.createElement('p');
   urlEl.className = 'card-url';
   urlEl.textContent = engine.url.replace(/^https?:\/\//, '');
   body.appendChild(urlEl);
 
-  /* Description */
   const descEl = document.createElement('p');
   descEl.className = 'card-description';
   descEl.textContent = engine.description;
   body.appendChild(descEl);
 
-  /* Why */
   const why = document.createElement('blockquote');
   why.className = 'card-why';
   const whyLabel = document.createElement('span');
@@ -211,7 +178,6 @@ function buildCard(engine, index) {
   why.appendChild(document.createTextNode(engine.why));
   body.appendChild(why);
 
-  /* Tags */
   const tagsDiv = document.createElement('div');
   tagsDiv.className = 'card-tags';
   engine.tags.forEach(t => {
@@ -240,14 +206,13 @@ function buildCard(engine, index) {
   }
   body.appendChild(tagsDiv);
 
-  /* Note — with manicule (the pointing hand) */
   if (engine.note) {
     const noteDiv = document.createElement('div');
     noteDiv.className = 'card-note';
     const manicule = document.createElement('span');
     manicule.className = 'manicule';
     manicule.setAttribute('aria-hidden', 'true');
-    manicule.textContent = '\u261e'; /* ☞ */
+    manicule.textContent = '\u261e';
     const noteText = document.createElement('span');
     noteText.textContent = engine.note;
     noteDiv.appendChild(manicule);
@@ -258,22 +223,17 @@ function buildCard(engine, index) {
   card.appendChild(bar);
   card.appendChild(body);
 
-  /* Dog-ear bookmark */
   attachDogEar(card, engine.name);
 
-  /* Spine row (visible only in spine density mode) */
   attachSpineRow(card, engine);
 
-  /* Internet Archive easter eggs */
   if (engine.name === 'Internet Archive') {
-    /* 10% chance: "currently borrowed" stamp */
     if (IA_IS_BORROWED) {
       const bs = document.createElement('div');
       bs.className = 'borrowed-stamp';
       bs.innerHTML = '<div class="borrowed-stamp-inner">Currently Borrowed<span>Expected return: unknown. See current litigation.</span></div>';
       card.appendChild(bs);
     }
-    /* Hover name for 3 seconds: name changes */
     const origName = engine.name;
     let iaTimer;
     nameLink.addEventListener('mouseenter', () => {
@@ -292,9 +252,6 @@ function buildCard(engine, index) {
   return card;
 }
 
-/* ============================================================
-   RENDER GROUPED GRID
-============================================================ */
 function renderGroupedGrid(grid, list, specialMsg) {
   grid.innerHTML = '';
 
@@ -312,7 +269,6 @@ function renderGroupedGrid(grid, list, specialMsg) {
 
   if (list.length === 0) {
     if (specialMsg) {
-      /* Special search response — styled display message */
       const p = document.createElement('p');
       p.className = 'placeholder';
       p.style.fontStyle = 'italic';
@@ -322,7 +278,6 @@ function renderGroupedGrid(grid, list, specialMsg) {
       p.textContent = specialMsg;
       grid.appendChild(p);
     } else {
-      /* Active filter with no results — the librarian's pencil writes the message */
       const filterVal = ((document.getElementById('filter-input') || {}).value || '').trim();
       if (filterVal) {
         grid.appendChild(buildLibrariansPencilEmpty(
@@ -339,7 +294,6 @@ function renderGroupedGrid(grid, list, specialMsg) {
     return;
   }
 
-  /* Group by subcategory, preserving original insertion order */
   const groups = {};
   const order  = [];
   list.forEach(e => {
@@ -353,7 +307,6 @@ function renderGroupedGrid(grid, list, specialMsg) {
     section.className = 'subcategory-section';
     section.id = 'sub-' + sub.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
 
-    /* Drawer-front label */
     const drawer = document.createElement('div');
     drawer.className = 'subcat-drawer';
     const lbl = document.createElement('span');
@@ -366,7 +319,6 @@ function renderGroupedGrid(grid, list, specialMsg) {
     drawer.appendChild(cnt);
     section.appendChild(drawer);
 
-    /* Subcategory description */
     if (SUBCATEGORY_DESCRIPTIONS[sub]) {
       const sdesc = document.createElement('p');
       sdesc.className = 'subcategory-desc';
@@ -374,7 +326,6 @@ function renderGroupedGrid(grid, list, specialMsg) {
       section.appendChild(sdesc);
     }
 
-    /* Card grid */
     const cg = document.createElement('div');
     cg.className = 'card-grid';
     groups[sub].forEach((e, i) => cg.appendChild(buildCard(e, i)));
@@ -383,9 +334,6 @@ function renderGroupedGrid(grid, list, specialMsg) {
   });
 }
 
-/* ============================================================
-   RENDER
-============================================================ */
 const filterInput  = document.getElementById('filter-input');
 const resultCount  = document.getElementById('result-count');
 const authorFlash  = document.getElementById('author-flash');
@@ -394,7 +342,6 @@ function render(filterStr) {
   const raw   = (filterStr || '').trim();
   const query = raw.toLowerCase();
 
-  /* Author quote easter egg */
   if (authorFlash && AUTHOR_QUOTES[query]) {
     const q = AUTHOR_QUOTES[query];
     authorFlash.innerHTML = '\u201c' + q.text + '\u201d <cite>' + q.attr + '</cite>';
@@ -405,7 +352,6 @@ function render(filterStr) {
     }, 5500);
   }
 
-  /* Special search terms */
   const special = SPECIAL_SEARCHES[query];
 
   if (special && special.show === 'none') {
@@ -418,7 +364,6 @@ function render(filterStr) {
   }
 
   if (special && special.show === 'random') {
-    /* "Surprise me": pick a random engine and show only it */
     const pick = engines[Math.floor(Math.random() * engines.length)];
     const cats = { conventional: [], indie: [], institutional: [] };
     cats[pick.category].push(pick);
@@ -449,18 +394,12 @@ function render(filterStr) {
   if (!userDensityLocked) autoDensity(query ? total : engines.length);
   buildSidebarNav(cats, query);
 
-  // Attach drawer pulls to newly rendered subcategory sections
   attachAllDrawerPulls();
-  // Sync dog-ear state across re-renders
   updateAllDogEars();
   updateMarkedCount();
-  // Apply saved pencil annotations
   applyAllAnnotations();
 }
 
-/* ============================================================
-   SIDEBAR NAVIGATION — rebuilds on every render
-============================================================ */
 function buildSidebarNav(cats, query) {
   const nav = document.getElementById('sidebar-nav-content');
   if (!nav) return;
@@ -485,7 +424,6 @@ function buildSidebarNav(cats, query) {
     gLink.addEventListener('click', () => { if (window.innerWidth <= 920) setSidebar(false, true); });
     gDiv.appendChild(gLink);
 
-    /* Subcategory links with filtered counts */
     const subCounts = {};
     list.forEach(e => { const s = e.subcategory || 'General'; subCounts[s] = (subCounts[s] || 0) + 1; });
     const allSubs = [...new Set(engines.filter(e => e.category === g.cat).map(e => e.subcategory || 'General'))];
@@ -509,9 +447,6 @@ function buildSidebarNav(cats, query) {
   });
 }
 
-/* ============================================================
-   DENSITY CONTROL
-============================================================ */
 let userDensityLocked = false;
 
 function autoDensity(count) {
@@ -527,9 +462,6 @@ function setDensity(d, lock) {
   if (lock) trackDensityEgg(d);
 }
 
-/* ============================================================
-   THEME
-============================================================ */
 function getTimeDesc() {
   const h = new Date().getHours();
   if (h < 6)  return 'the small hours';
@@ -549,22 +481,30 @@ function initTheme() {
   applyTheme(t, false);
 }
 
+const THEMES = ['light', 'dark', 'contrast'];
+const THEME_ICON = { light: '\u2600\ufe0f', dark: '\u263e', contrast: '\u25e8' };
+const THEME_NAME = { light: 'Light', dark: 'Dark', contrast: 'Contrast' };
+
 function applyTheme(t, save) {
+  if (THEMES.indexOf(t) === -1) t = 'light';
   document.documentElement.dataset.theme = t;
   const icon  = document.getElementById('theme-icon');
   const label = document.getElementById('theme-label');
-  if (icon)  icon.textContent  = t === 'dark' ? '\u263e' : '\u2600\ufe0f';
-  if (label) label.textContent = t === 'dark' ? 'Dark'   : 'Light';
+  const btn   = document.getElementById('theme-toggle');
+  if (icon)  icon.textContent  = THEME_ICON[t];
+  if (label) label.textContent = THEME_NAME[t];
+  if (btn) {
+    const next = THEMES[(THEMES.indexOf(t) + 1) % THEMES.length];
+    btn.setAttribute('aria-label', THEME_NAME[t] + ' theme. Activate for ' + THEME_NAME[next] + '.');
+  }
   if (save) try { localStorage.setItem('cat-theme', t); } catch(e) {}
 }
 
 function toggleTheme() {
-  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
+  const i = THEMES.indexOf(document.documentElement.dataset.theme);
+  applyTheme(THEMES[(i + 1) % THEMES.length], true);
 }
 
-/* ============================================================
-   SIDEBAR
-============================================================ */
 function initSidebar() {
   let open = window.innerWidth > 920;
   try {
@@ -595,11 +535,7 @@ function toggleSidebar() {
   setSidebar(document.getElementById('sidebar').classList.contains('closed'), true);
 }
 
-/* ============================================================
-   EASTER EGGS
-============================================================ */
 
-/* 1. Type B-A-B-E-L anywhere (outside input) */
 let babelBuf = '';
 document.addEventListener('keydown', e => {
   if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
@@ -625,7 +561,6 @@ function triggerBabelEffect() {
   setTimeout(() => ov.remove(), 3500);
 }
 
-/* 2. Borges epigraph: click 7 times to expand */
 let borgesClicks = 0;
 const BORGES_FULL = 'The universe (which others call the Library) is composed of an indefinite, perhaps infinite number of hexagonal galleries, with vast air shafts between them, surrounded by very low railings. From any of the hexagons one can see, interminably, the upper and lower floors.';
 
@@ -646,7 +581,6 @@ if (epigraphEl) {
   });
 }
 
-/* 3. Konami code: staff recommendations overlay */
 const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 let konamiIdx = 0;
 document.addEventListener('keydown', e => {
@@ -673,7 +607,6 @@ function triggerStaffRecommendations() {
   document.body.appendChild(ov);
 }
 
-/* 4. Midnight event */
 let midnightFired = false;
 function checkMidnight() {
   const n = new Date();
@@ -701,7 +634,6 @@ function triggerMidnightEvent() {
   }, 5500);
 }
 
-/* 5. Density scramble: compact > spacious > compact > spacious within 5 seconds */
 const densityEggSeq = [];
 let densityEggTimer;
 
@@ -727,20 +659,14 @@ function triggerCardScramble() {
   });
 }
 
-/* 6. Patient footer message: appears after 3 minutes of the page being open */
 setTimeout(() => {
   const el = document.getElementById('footer-patient');
   if (el) el.style.opacity = '1';
 }, 3 * 60 * 1000);
 
-/* ============================================================
-   STATIC CHARMS — set once at load
-============================================================ */
 
-/* Title by time of day */
 document.title = 'The Catalogue of Engines \u2014 ' + getTimeDesc();
 
-/* Footer engine count in decimal and hexadecimal */
 (function() {
   const el = document.getElementById('engine-count-hex');
   if (!el) return;
@@ -749,11 +675,6 @@ document.title = 'The Catalogue of Engines \u2014 ' + getTimeDesc();
 })();
 
 
-/* ============================================================
-   FEATURE: THE DOG-EAR
-   Fold/unfold a card corner to mark it for later.
-   Marked engines persist to localStorage as a Set of names.
-   ============================================================ */
 
 const MARKED_KEY = 'cat-marked';
 
@@ -810,7 +731,6 @@ function updateMarkedCount() {
   }
 }
 
-/* Inject dog-ear into a card */
 function attachDogEar(card, engineName) {
   const ear = document.createElement('button');
   ear.className = 'dog-ear';
@@ -830,16 +750,13 @@ function attachDogEar(card, engineName) {
     toggleMark(engineName);
   });
 
-  // Insert as first child of card so it sits at top-right corner
   card.insertBefore(tip, card.firstChild);
   card.insertBefore(ear, card.firstChild);
 }
 
-/* Filter to show only marked engines */
 function filterToMarked() {
   const inp = document.getElementById('filter-input');
   if (!inp) return;
-  // If already filtering by marked, clear it
   if (inp.dataset.markedFilter === 'true') {
     inp.dataset.markedFilter = 'false';
     inp.value = '';
@@ -847,7 +764,6 @@ function filterToMarked() {
     return;
   }
   inp.dataset.markedFilter = 'true';
-  // Render only marked engines directly
   renderMarkedOnly();
 }
 
@@ -869,12 +785,6 @@ function renderMarkedOnly() {
   buildSidebarNav(cats, '__marked__');
 }
 
-/* ============================================================
-   FEATURE: THE DRAWER PULL
-   Each subcategory section can be collapsed/expanded.
-   A pull affordance sits in the drawer-front header.
-   State persists to localStorage.
-   ============================================================ */
 
 const DRAWERS_KEY = 'cat-drawers';
 
@@ -902,10 +812,7 @@ function toggleDrawer(sectionEl, id) {
   saveDrawerState(collapsedDrawers);
 }
 
-/* Attach pull affordance to a drawer-front element */
 function attachDrawerPull(drawerEl, sectionEl, subcatId) {
-  // Wrap existing content in a flex container
-  // Add pull icon at right
   const pull = document.createElement('div');
   pull.className = 'subcat-pull';
 
@@ -917,26 +824,21 @@ function attachDrawerPull(drawerEl, sectionEl, subcatId) {
 
   drawerEl.appendChild(pull);
 
-  // Wrap the subcategory desc + card-grid in .subcat-body
   const body = document.createElement('div');
   body.className = 'subcat-body';
 
-  // Move all siblings after the drawer into the body
   const section = drawerEl.parentElement;
   const children = [...section.children];
   const drawerIdx = children.indexOf(drawerEl);
   children.slice(drawerIdx + 1).forEach(child => body.appendChild(child));
   section.appendChild(body);
 
-  // Restore collapsed state
   if (collapsedDrawers.has(subcatId)) {
     sectionEl.classList.add('collapsed');
   }
 
-  // Click to toggle
   drawerEl.addEventListener('click', () => toggleDrawer(sectionEl, subcatId));
 
-  // Keyboard support
   drawerEl.setAttribute('role', 'button');
   drawerEl.setAttribute('tabindex', '0');
   drawerEl.setAttribute('aria-expanded', collapsedDrawers.has(subcatId) ? 'false' : 'true');
@@ -950,7 +852,6 @@ function attachDrawerPull(drawerEl, sectionEl, subcatId) {
   });
 }
 
-/* After each render, attach drawer pulls to all new sections */
 function attachAllDrawerPulls() {
   document.querySelectorAll('.subcategory-section').forEach(section => {
     const id = section.id;
@@ -961,16 +862,10 @@ function attachAllDrawerPulls() {
   });
 }
 
-/* ============================================================
-   FEATURE: THE READING LAMP
-   Focus mode: dims all cards except the one being read.
-   Toggled from a button in the sidebar controls area.
-   ============================================================ */
 
 let lampActive = false;
 
 function initLamp() {
-  // Restore saved preference
   try {
     if (localStorage.getItem('cat-lamp') === 'true') {
       lampActive = true;
@@ -995,28 +890,21 @@ function updateLampBtn() {
   btn.querySelector('.lamp-label').textContent = lampActive ? 'Lamp On' : 'Reading Lamp';
 }
 
-/* ============================================================
-   SIDEBAR FEATURE CONTROLS — injected after sidebar renders
-   Adds lamp button and marked count to the sidebar dynamically
-   so index.html stays untouched.
-============================================================ */
 function injectSidebarFeatureControls() {
   const search = document.querySelector('.sidebar-search');
   if (!search) return;
 
-  // Spine density button — added to the density-btns group
   const densityBtns = document.querySelector('.density-btns');
   if (densityBtns && !document.querySelector('[data-density="spine"]')) {
     const spineBtn = document.createElement('button');
     spineBtn.dataset.density = 'spine';
     spineBtn.title = 'Spine view';
     spineBtn.setAttribute('aria-label', 'Spine density');
-    spineBtn.textContent = '≡'; /* ≡ three lines = spines */
+    spineBtn.textContent = '≡';
     spineBtn.addEventListener('click', () => setDensity('spine', true));
     densityBtns.appendChild(spineBtn);
   }
 
-  // Reading lamp button — inserted before .sidebar-search
   if (!document.getElementById('lamp-btn')) {
     const lampWrap = document.createElement('div');
     lampWrap.style.cssText = 'padding: 0 1.2rem;';
@@ -1032,7 +920,6 @@ function injectSidebarFeatureControls() {
     search.parentNode.insertBefore(lampWrap, search);
   }
 
-  // Marked engines count — inserted inside .sidebar-search after result-count
   if (!document.getElementById('sidebar-marked-count')) {
     const markedEl = document.createElement('p');
     markedEl.id = 'sidebar-marked-count';
@@ -1047,7 +934,6 @@ function injectSidebarFeatureControls() {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); filterToMarked(); }
     });
 
-    /* Clipping file link — appears below marked count when cards are marked */
     const markedFooter = document.createElement('div');
     markedFooter.className = 'sidebar-marked-footer';
     markedFooter.id = 'sidebar-marked-footer';
@@ -1056,8 +942,7 @@ function injectSidebarFeatureControls() {
     clipLink.textContent = 'Open clipping file';
     clipLink.addEventListener('click', openClippingFile);
     markedFooter.appendChild(clipLink);
-    
-/* Insert both after result-count — declare anchor first, use second */
+
 const resultCountEl = document.getElementById('result-count');
 if (resultCountEl && resultCountEl.parentNode) {
   resultCountEl.parentNode.insertBefore(markedEl, resultCountEl.nextSibling);
@@ -1066,17 +951,10 @@ if (resultCountEl && resultCountEl.parentNode) {
 
   }
 
-  /* Hidden glyph — the last thing in the sidebar */
   injectOstrichGlyph();
 }
 
 
-/* ============================================================
-   FEATURE: THE PENCIL UNDERLINE
-   Text selection in .card-description or .card-why
-   triggers a floating annotation mark. Click to underline
-   and persist. Annotations stored by engine name in localStorage.
-   ============================================================ */
 
 const ANNOTATIONS_KEY = 'cat-annotations';
 
@@ -1091,9 +969,7 @@ function saveAnnotations(obj) {
   try { localStorage.setItem(ANNOTATIONS_KEY, JSON.stringify(obj)); } catch(e) {}
 }
 
-let annotations = loadAnnotations(); // { engineName: [ {text, field}, ... ] }
-
-/* Build the floating trigger element once */
+let annotations = loadAnnotations();
 const annotationTrigger = document.createElement('div');
 annotationTrigger.className = 'annotation-trigger';
 annotationTrigger.setAttribute('aria-label', 'Annotate selection');
@@ -1104,8 +980,7 @@ annotationTrigger.innerHTML =
   '</button>';
 document.body.appendChild(annotationTrigger);
 
-let pendingAnnotation = null; // { engineName, text, field, range }
-
+let pendingAnnotation = null;
 function hideAnnotationTrigger() {
   annotationTrigger.classList.remove('visible');
   pendingAnnotation = null;
@@ -1118,14 +993,12 @@ function showAnnotationTrigger(x, y, engineName, text, field) {
   annotationTrigger.classList.add('visible');
 }
 
-/* Listen for selection end on annotatable fields */
 document.addEventListener('mouseup', e => {
   const sel = window.getSelection();
   if (!sel || sel.isCollapsed || !sel.toString().trim()) {
     hideAnnotationTrigger();
     return;
   }
-  /* Walk up to find the card */
   const target = sel.anchorNode && sel.anchorNode.parentElement;
   if (!target) return;
   const field = target.closest('.card-description, .card-why');
@@ -1148,34 +1021,29 @@ document.addEventListener('mouseup', e => {
   );
 });
 
-/* Clicking the trigger saves the annotation */
 annotationTrigger.querySelector('.annotation-trigger-btn').addEventListener('mousedown', e => {
   e.preventDefault();
   if (!pendingAnnotation) return;
   const { engineName, text, field } = pendingAnnotation;
 
   if (!annotations[engineName]) annotations[engineName] = [];
-  /* Avoid exact duplicates */
   if (!annotations[engineName].find(a => a.text === text && a.field === field)) {
     annotations[engineName].push({ text, field });
     saveAnnotations(annotations);
   }
   hideAnnotationTrigger();
   window.getSelection().removeAllRanges();
-  /* Re-render annotations on the affected card */
   document.querySelectorAll('.card').forEach(card => {
     const nl = card.querySelector('.card-name-link');
     if (nl && nl.textContent.trim() === engineName) applyAnnotationsToCard(card, engineName);
   });
 });
 
-/* Dismiss trigger on scroll or click elsewhere */
 document.addEventListener('mousedown', e => {
   if (!annotationTrigger.contains(e.target)) hideAnnotationTrigger();
 });
 document.addEventListener('scroll', hideAnnotationTrigger, { passive: true });
 
-/* Apply saved annotations to a card's text nodes */
 function applyAnnotationsToCard(card, engineName) {
   const annots = annotations[engineName];
   if (!annots || annots.length === 0) return;
@@ -1187,26 +1055,20 @@ function applyAnnotationsToCard(card, engineName) {
     const el = card.querySelector(selector);
     if (!el) return;
 
-    /* Walk text nodes and wrap matches */
     wrapTextInElement(el, text);
 
-    /* Mark the card bar */
     if (bar) bar.classList.add('has-annotation');
   });
 
-  /* Remove annotation on click */
   card.querySelectorAll('mark.cat-annotation').forEach(mark => {
     mark.addEventListener('click', () => {
       const markedText = mark.textContent;
-      /* Remove from storage */
       if (annotations[engineName]) {
         annotations[engineName] = annotations[engineName].filter(a => a.text !== markedText);
         if (annotations[engineName].length === 0) delete annotations[engineName];
         saveAnnotations(annotations);
       }
-      /* Replace mark with plain text */
       mark.replaceWith(document.createTextNode(markedText));
-      /* Recheck bar */
       const remainingMarks = card.querySelectorAll('mark.cat-annotation');
       if (remainingMarks.length === 0 && bar) bar.classList.remove('has-annotation');
     });
@@ -1214,7 +1076,6 @@ function applyAnnotationsToCard(card, engineName) {
 }
 
 function wrapTextInElement(el, searchText) {
-  /* Simple text-node walker — wraps first occurrence of searchText in a <mark> */
   const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
   let node;
   while ((node = walker.nextNode())) {
@@ -1228,11 +1089,10 @@ function wrapTextInElement(el, searchText) {
     node.parentNode.replaceChild(after, node);
     node.parentNode.insertBefore(mark, after);
     node.parentNode.insertBefore(before, mark);
-    break; /* One occurrence per card per annotation */
+    break;
   }
 }
 
-/* Called after each render to apply all saved annotations */
 function applyAllAnnotations() {
   document.querySelectorAll('.card').forEach(card => {
     const nl = card.querySelector('.card-name-link');
@@ -1242,17 +1102,11 @@ function applyAllAnnotations() {
   });
 }
 
-/* ============================================================
-   FEATURE: THE ACCESSIONS STAMP
-   Click the OA stamp: press, ink ring fires, releases.
-   Pure theater. Attached in buildCard via event delegation.
-   ============================================================ */
 
 function triggerAccessionStamp(stampEl, event) {
   if (stampEl.classList.contains('pressing')) return;
   stampEl.classList.add('pressing');
 
-  /* Ink ring at click position */
   const ring = document.createElement('div');
   ring.className = 'ink-ring';
   ring.style.left = event.clientX + 'px';
@@ -1265,18 +1119,11 @@ function triggerAccessionStamp(stampEl, event) {
   }, { once: true });
 }
 
-/* Delegate stamp clicks from document */
 document.addEventListener('click', e => {
   const stamp = e.target.closest('.oa-stamp');
   if (stamp) triggerAccessionStamp(stamp, e);
 });
 
-/* ============================================================
-   FEATURE: SPINE LABELS
-   Fourth density mode. Each card renders as a book spine.
-   Clicking a spine expands it to a full card inline.
-   State of expanded spines resets on density change.
-   ============================================================ */
 
 function attachSpineRow(card, engine) {
   const spine = document.createElement('div');
@@ -1308,7 +1155,6 @@ function attachSpineRow(card, engine) {
 
   const toggle = () => {
     const isExpanded = card.classList.contains('spine-expanded');
-    /* Collapse all others first */
     document.querySelectorAll('.card.spine-expanded').forEach(c => {
       c.classList.remove('spine-expanded');
       const s = c.querySelector('.card-spine');
@@ -1317,7 +1163,6 @@ function attachSpineRow(card, engine) {
     if (!isExpanded) {
       card.classList.add('spine-expanded');
       spine.setAttribute('aria-expanded', 'true');
-      /* Scroll card into view gently */
       setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
     }
   };
@@ -1325,15 +1170,9 @@ function attachSpineRow(card, engine) {
   spine.addEventListener('click', toggle);
   spine.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
 
-  /* Insert as first child so it sits above the bar */
   card.insertBefore(spine, card.firstChild);
 }
 
-/* ============================================================
-   FEATURE: THE CLIPPING FILE
-   Print-ready overlay of all dog-eared cards.
-   Opened from the sidebar marked-count area.
-   ============================================================ */
 
 function openClippingFile() {
   const marked = engines.filter(e => markedEngines.has(e.name));
@@ -1342,7 +1181,6 @@ function openClippingFile() {
   overlay.className = 'clip-overlay';
   overlay.id = 'clip-overlay';
 
-  /* Header */
   const header = document.createElement('div');
   header.className = 'clip-header';
   const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -1389,7 +1227,6 @@ function openClippingFile() {
 
       const desc = document.createElement('p');
       desc.className = 'clip-card-desc';
-      /* Truncate long descriptions for print readability */
       const words = engine.description.split(' ');
       desc.textContent = words.length > 55
         ? words.slice(0, 55).join(' ') + '\u2026'
@@ -1427,26 +1264,16 @@ function openClippingFile() {
 
   document.body.appendChild(overlay);
 
-  /* Close on backdrop click (outside the content) */
   overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
-  /* Close on Escape */
   const escHandler = e => { if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', escHandler); } };
   document.addEventListener('keydown', escHandler);
 }
 
-/* ============================================================
-   FEATURE: THE LIBRARIAN'S PENCIL
-   Replaces the static empty-state placeholder with an animated
-   typewriter effect: the pencil writes the message letter by letter.
-   Called from renderGroupedGrid when a gallery returns nothing
-   and it is the result of an active user query (not initial load).
-   ============================================================ */
 
 function buildLibrariansPencilEmpty(msg1, msg2) {
   const wrap = document.createElement('div');
   wrap.className = 'librarian-pencil';
 
-  /* Simple pencil SVG */
   wrap.innerHTML =
     '<svg class="pencil-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" ' +
     'xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
@@ -1465,14 +1292,6 @@ function buildLibrariansPencilEmpty(msg1, msg2) {
 
 
 
-/* ============================================================
-   EASTER EGG: THE HIDDEN GLYPH
-   A barely-visible hexagon at the bottom of the sidebar scroll area.
-   Not labeled. Not explained. For the ones who read to the end.
-
-   The fictional engine it reveals is the one entry in the catalogue
-   that describes something that does not exist and probably should.
-   ============================================================ */
 
 const OSTRICH_ENGINE = {
   callnum: 'II.∞',
@@ -1516,22 +1335,18 @@ let ostrichVisible = false;
 let ostrichTimer   = null;
 
 function triggerOstrichCard() {
-  /* One at a time. If already visible, let it be. */
   if (ostrichVisible) return;
   ostrichVisible = true;
 
   const card = buildOstrichCard();
   document.body.appendChild(card);
 
-  /* Trigger entrance on next frame so the transition fires */
   requestAnimationFrame(() =>
     requestAnimationFrame(() => card.classList.add('visible'))
   );
 
-  /* Hold for 9 seconds, then leave */
   ostrichTimer = setTimeout(() => dismissOstrichCard(card), 9000);
 
-  /* Click anywhere on the card to dismiss early */
   card.addEventListener('click', () => {
     clearTimeout(ostrichTimer);
     dismissOstrichCard(card);
@@ -1547,9 +1362,6 @@ function dismissOstrichCard(card) {
   }, { once: true });
 }
 
-/* Inject the glyph at the bottom of the sidebar scroll area.
-   Called once from injectSidebarFeatureControls so it appears
-   after the sidebar has been populated. */
 function injectOstrichGlyph() {
   const scroll = document.querySelector('.sidebar-scroll');
   if (!scroll || document.getElementById('ostrich-glyph')) return;
@@ -1557,16 +1369,13 @@ function injectOstrichGlyph() {
   const glyph = document.createElement('button');
   glyph.id = 'ostrich-glyph';
   glyph.className = 'sidebar-ostrich-glyph';
-  glyph.setAttribute('aria-label', '⬡'); /* Not labeled for a reason */
-  glyph.setAttribute('tabindex', '-1');       /* Not keyboard-navigable — find it or don't */
-  glyph.textContent = '⬡';               /* ⬡ — the outer hexagon, barely visible */
+  glyph.setAttribute('aria-label', '⬡');
+  glyph.setAttribute('tabindex', '-1');
+  glyph.textContent = '⬡';
   glyph.addEventListener('click', triggerOstrichCard);
   scroll.appendChild(glyph);
 }
 
-/* ============================================================
-   EVENT LISTENERS
-============================================================ */
 filterInput.addEventListener('input', function() { render(this.value); });
 
 document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
@@ -1577,11 +1386,7 @@ document.querySelectorAll('.density-btns button').forEach(btn => {
   btn.addEventListener('click', () => setDensity(btn.dataset.density, true));
 });
 
-/* ============================================================
-   INIT
-============================================================ */
 
-/* Assign stable call numbers once, before rendering */
 (function assignCallNumbers() {
   const counts = {};
   const numerals = { conventional: 'I', indie: 'II', institutional: 'III' };
@@ -1594,7 +1399,6 @@ document.querySelectorAll('.density-btns button').forEach(btn => {
 
 initTheme();
 
-/* Restore density preference */
 (function() {
   let d; try { d = localStorage.getItem('cat-density'); } catch(e) {}
   if (d) { setDensity(d, true); }
