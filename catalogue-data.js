@@ -1785,7 +1785,7 @@ const engines = [
 
   {
     name: "Virginia Memory",
-    url: "https://www.virginiamemory.com",
+    url: "https://www.lva.virginia.gov/collections/digital-collections",
     category: "institutional",
     subcategory: "U.S. State & Local",
     description: "The Library of Virginia's digital collections cover state history from colonial records through the twentieth century: birth and death certificates, military rosters, plantation records, photographs, maps, and legislative documents. The African American community collections and the colonial county court records are among the most significant holdings for researchers of Virginia and Southern history.",
@@ -1799,7 +1799,7 @@ const engines = [
 
   {
     name: "North Carolina Digital Collections",
-    url: "https://digital.ncdcr.gov/search",
+    url: "https://digital.ncdcr.gov/",
     category: "institutional",
     subcategory: "U.S. State & Local",
     description: "The North Carolina Digital Heritage Center aggregates materials from libraries, archives, and museums across the state: photographs, newspapers, maps, postcards, yearbooks, and institutional records documenting North Carolina history from colonial settlement through the twentieth century. Collections are particularly strong for African American history, Appalachian culture, and the state's textile and tobacco industries.",
@@ -2384,7 +2384,7 @@ const engines = [
 
   {
     name: "Winterthur",
-    url: "http://museumcollection.winterthur.org/search",
+    url: "https://museumcollection.winterthur.org/",
     category: "institutional",
     subcategory: "Art Museums",
     description: "Henry Francis du Pont's former country estate in Delaware now holds the most comprehensive collection of American decorative arts in existence: 90,000 objects made or used in America from 1640 to 1860, installed in 175 period room settings that preserve the original material environments of American domestic life. The Winterthur Library holds 500,000 items on the history of American art, architecture, and material culture. There is no more complete record of how Americans furnished and inhabited their homes across two centuries.",
