@@ -2750,7 +2750,7 @@ const engines = [
 
   {
     name: "National Museums Liverpool",
-    url: "https://www.liverpoolmuseums.org.uk/collections/search",
+    url: "https://www.liverpoolmuseums.org.uk/international-slavery-museum",
     category: "institutional",
     subcategory: "United Kingdom",
     description: "National Museums Liverpool encompasses eight museums including the Walker Art Gallery, the World Museum, the Merseyside Maritime Museum, and the International Slavery Museum. The collections cover art, natural history, archaeology, and the history of Liverpool and the Atlantic world, including one of Britain's most significant institutional engagements with the history of the transatlantic slave trade. The Walker's nineteenth-century British painting collection is among the finest outside London.",
